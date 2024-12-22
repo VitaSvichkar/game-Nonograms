@@ -1,9 +1,11 @@
 import { updateSelect } from './updateSelect.js';
 import { updateGame } from './updateGame.js';
+import { colorCell } from './colorCell.js';
 
 export function events(obj) {
   const selectSizes = document.querySelector('.select-sizes');
   const selectNames = document.querySelector('.select-names');
+  const gameBlock = document.querySelector('.game');
 
   selectNames.addEventListener('change', () => {
     obj.curName = selectNames.value;
@@ -14,7 +16,6 @@ export function events(obj) {
     obj.curSize = selectSizes.value;
     obj.cellWrapInRow = selectSizes.value / obj.cellsInRow;
 
-    const gameBlock = document.querySelector('.game');
     gameBlock.style.setProperty('--cellWrapCount', obj.cellWrapInRow);
     const selectNames = document.querySelector('.select-names');
     const keyNames = `valuesGameNames${obj.curSize}`;
@@ -23,4 +24,8 @@ export function events(obj) {
     updateSelect(arrNames, selectNames);
     updateGame(obj);
   });
+
+  gameBlock.addEventListener('click', (e) => colorCell(e));
+
+  gameBlock.addEventListener('contextmenu', (e) => colorCell(e));
 }
