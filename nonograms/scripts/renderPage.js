@@ -1,4 +1,5 @@
 import { game } from './gameData.js';
+import { showHints } from './showHints.js';
 
 export default function renderPage() {
   const body = document.body;
@@ -91,6 +92,10 @@ export default function renderPage() {
   const gameBlock = document.createElement('div');
   gameBlock.classList.add('game');
   gameBlock.style.setProperty('--cellWrapCount', game.cellWrapInRow);
+
+  const [wrapHintLeft, wrapHintTop] = showHints(game);
+  hintLeft.append(wrapHintLeft);
+  hintTop.append(wrapHintTop);
 
   blockRight.append(hintTop, gameBlock);
   blockLeft.append(selectSizes, selectGameNames, hintLeft);
