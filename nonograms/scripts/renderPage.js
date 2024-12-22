@@ -1,6 +1,7 @@
 import { game } from './gameData.js';
-import { showHints } from './showHints.js';
-import { fillField } from './fillField.js';
+import { updateSelect } from './updateSelect.js';
+import { updateGame } from './updateGame.js';
+import { events } from './events.js';
 
 export default function renderPage() {
   const body = document.body;
@@ -13,21 +14,6 @@ export default function renderPage() {
 
   const gameButtons = document.createElement('div');
   gameButtons.classList.add('game-btns');
-
-  // SELECT THEME
-
-  const selectTheme = document.createElement('select');
-  selectTheme.classList.add('theme');
-
-  const valuesTheme = ['light', 'dark', 'secret'];
-
-  valuesTheme.forEach((theme) => {
-    const option = document.createElement('option');
-    option.value = theme;
-    option.textContent = theme;
-    selectTheme.append(option);
-  });
-  selectTheme.value = 'light';
 
   // BUTTONS
 
@@ -43,36 +29,29 @@ export default function renderPage() {
   btnReset.classList.add('reset');
   btnReset.textContent = 'reset';
 
+  // SELECT THEME
+
+  const selectTheme = document.createElement('select');
+  selectTheme.classList.add('theme');
+  const valuesTheme = ['light', 'dark', 'secret'];
+  updateSelect(valuesTheme, selectTheme);
+
   // SELECT NAMES
 
   const selectGameNames = document.createElement('select');
   selectGameNames.classList.add('select-style');
-
-  game.valuesGameNames5.forEach((name) => {
-    const option = document.createElement('option');
-    option.value = name;
-    option.textContent = name;
-    selectGameNames.append(option);
-  });
-  game.curName = selectGameNames.value = 'name1';
-  game.curGame = game.variants[0];
-  console.log(game.curGame);
+  selectGameNames.classList.add('select-names');
+  updateSelect(game.valuesGameNames5, selectGameNames);
 
   // SELECT SIZES
 
   const selectSizes = document.createElement('select');
   selectSizes.classList.add('select-style');
-
+  selectSizes.classList.add('select-sizes');
   const valuesSizes = [5, 10, 15];
+  updateSelect(valuesSizes, selectSizes);
 
-  valuesSizes.forEach((size) => {
-    const option = document.createElement('option');
-    option.value = size;
-    option.textContent = `${size}x${size}`;
-    selectSizes.append(option);
-  });
-
-  game.cellWrapInRow = (selectSizes.value = 5) / game.cellsInRow;
+  game.cellWrapInRow = selectSizes.value / game.cellsInRow;
   game.curSize = selectSizes.value;
 
   const wrapGame = document.createElement('div');
@@ -81,25 +60,18 @@ export default function renderPage() {
   const blockLeft = document.createElement('div');
   blockLeft.classList.add('block-left');
 
+  const blockRight = document.createElement('div');
+  blockRight.classList.add('block-right');
+
   const hintLeft = document.createElement('div');
   hintLeft.classList.add('hint-left');
 
   const hintTop = document.createElement('div');
   hintTop.classList.add('hint-top');
 
-  const blockRight = document.createElement('div');
-  blockRight.classList.add('block-right');
-
   const gameBlock = document.createElement('div');
   gameBlock.classList.add('game');
   gameBlock.style.setProperty('--cellWrapCount', game.cellWrapInRow);
-
-  const [wrapHintLeft, wrapHintTop] = showHints(game);
-  hintLeft.append(wrapHintLeft);
-  hintTop.append(wrapHintTop);
-
-  const cellWrap = fillField(game);
-  gameBlock.append(cellWrap);
 
   blockRight.append(hintTop, gameBlock);
   blockLeft.append(selectSizes, selectGameNames, hintLeft);
@@ -108,4 +80,9 @@ export default function renderPage() {
   wrap.append(gameButtons, wrapGame);
   main.append(wrap);
   body.append(main);
+
+  game.curName = game.valuesGameNames5[0];
+
+  updateGame(game);
+  events(game);
 }
