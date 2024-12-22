@@ -45,7 +45,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 20px;
 }
 
 .game-btns {
@@ -82,10 +82,9 @@ body {
 }
 
 .select-style {
-  margin-right: 5px;
+  width: 90%;
   align-self: flex-start;
   font-family: 'Courier New', Courier, monospace;
-  width: 100%;
   outline: none;
   border-radius: 5px;
   background-color: rgb(220, 239, 254);
