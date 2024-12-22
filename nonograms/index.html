@@ -5,10 +5,195 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nonograms</title>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
+  <!-- <div class="main">
+    <div class="wrap">
+      <div class="game-btns">
+        <select name="theme" id="" class="theme">
+          <option value="classic" selected>light</option>
+          <option value="dark">dark</option>
+          <option value="light">secret</option>
+        </select>
+        <button>random</button>
+        <button>solution</button>
+        <button class="reset">reset</button>
+      </div>
 
+      <div class="wrap-game">
+        <div class="block-left">
+          <select name="sizes" id="" class="select-style">
+            <option value="5" selected>5x5</option>
+            <option value="10">10x10</option>
+            <option value="15">15x15</option>
+          </select>
+          <select name="game-names" id="" class="select-style">
+            <option value="5" selected>name1</option>
+            <option value="10">name2</option>
+            <option value="15">name3</option>
+            <option value="10">name4</option>
+            <option value="15">name5</option>
+          </select>
+          <div class="hint-left">
+            <div class="wrap-hint-left">
+              <div class="hints"><span>1</span><span>3</span><span>4</span></div>
+              <div class="hints"><span>3</span><span>4</span><span>6</span></div>
+              <div class="hints"><span>3</span><span>4</span><span>6</span></div>
+              <div class="hints"><span>4</span></div>
+              <div class="hints"><span>5</span></div>
+            </div>
+
+            <div class="wrap-hint-left">
+              <div class="hints"><span>1</span><span>3</span><span>4</span></div>
+              <div class="hints"><span>4</span>6<span>3</span><span>4</span><span>6</span> </div>
+              <div class="hints"><span>3</span><span>4</span><span>6</span></div>
+              <div class="hints">4</div>
+              <div class="hints">5</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="block-right">
+
+          <div class="hint-top">
+            <div class="wrap-hint-top">
+              <div class="hints"><span>10</span><span>3</span><span>4</span><span>4</span></div>
+              <div class="hints">2</div>
+              <div class="hints"><span>3</span><span>4</span><span>6</span></div>
+              <div class="hints">4</div>
+              <div class="hints">5</div>
+            </div>
+
+            <div class="wrap-hint-top">
+              <div class="hints"><span>1</span><span>3</span><span>4</span><span>4</span></div>
+              <div class="hints">2</div>
+              <div class="hints"><span>3</span><span>4</span><span>6</span></div>
+              <div class="hints">4</div>
+              <div class="hints">5</div>
+            </div>
+          </div>
+
+
+          <div class="game">
+            <div class="cell-wrap">
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell active"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell mark-wrong"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell  mark-wrong"></div>
+              <div class="cell  mark-wrong"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+            </div>
+
+            <div class="cell-wrap">
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+            </div>
+
+            <div class="cell-wrap">
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+            </div>
+
+            <div class="cell-wrap">
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+              <div class="cell"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <script src="./main.js" type="module"></script>
 </body>
 
 </html>

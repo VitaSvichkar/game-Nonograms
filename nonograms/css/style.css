@@ -1,0 +1,204 @@
+:root {
+  --cellwrapcount: 1;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+
+.game-btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 10px;
+}
+.game-btns > * {
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid rgb(190, 190, 190);
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+.game-btns > *:hover {
+  border: 1px solid rgb(27, 25, 25);
+}
+.game-btns .reset {
+  color: aliceblue;
+  border: none;
+  background-color: rgb(249, 98, 98);
+}
+.game-btns .reset:hover {
+  background-color: #f94141;
+}
+
+.wrap-game {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.select-style {
+  margin-right: 5px;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  font-family: "Courier New", Courier, monospace;
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  background-color: rgb(220, 239, 254);
+}
+
+.block-left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.wrap-hint-left {
+  border: 2px solid rgb(49, 49, 51);
+}
+.wrap-hint-left .hints {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid rgb(215, 215, 215);
+  gap: 5px;
+  padding-right: 5px;
+  height: 30px;
+  border-right: none;
+  border-left: none;
+}
+
+.hint-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.wrap-hint-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border: 2px solid rgb(49, 49, 51);
+}
+.wrap-hint-top .hints {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid rgb(215, 215, 215);
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 30px;
+  border-top: none;
+  border-bottom: none;
+}
+
+.game {
+  display: grid;
+  grid-template-columns: repeat(var(--cellWrapCount), 1fr);
+}
+
+.cell-wrap {
+  border: 2px solid rgb(49, 49, 51);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.cell {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgb(215, 215, 215);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 25px;
+  color: rgb(249, 98, 98);
+}
+.cell:hover {
+  border-color: rgb(49, 49, 51);
+}
+
+.active {
+  background-color: rgb(49, 49, 51);
+  border: 1px solid rgb(49, 49, 51);
+}
+
+.mark-wrong::before {
+  content: "x";
+}
+
+.mark-wrong:hover {
+  border: 1px solid rgb(249, 98, 98);
+}/*# sourceMappingURL=style.css.map */

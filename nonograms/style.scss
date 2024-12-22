@@ -1,0 +1,169 @@
+:root {
+  --cellwrapcount: 1;
+}
+
+$widthCell: 30px;
+$mainColor: rgb(49, 49, 51);
+$cellColor: rgb(215, 215, 215);
+$clickColorWrong: rgb(249, 98, 98);
+$border: 1px solid $mainColor;
+$borderBold: 2px solid $mainColor;
+$borderWrong: 1px solid $clickColorWrong;
+
+@mixin borderCellHint {
+  border: $borderBold;
+
+  .hints {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border: 1px solid $cellColor;
+    @content;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.game-btns {
+  display: flex;
+  gap: 10px;
+
+  & > * {
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid rgb(190, 190, 190);
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+
+    &:hover {
+      border: 1px solid rgb(27, 25, 25);
+    }
+  }
+
+  .reset {
+    color: aliceblue;
+    border: none;
+    background-color: $clickColorWrong;
+
+    &:hover {
+      background-color: #f94141;
+    }
+  }
+}
+
+.wrap-game {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.select-style {
+  margin-right: 5px;
+  align-self: flex-start;
+  font-family: 'Courier New', Courier, monospace;
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  background-color: rgb(220, 239, 254);
+}
+
+.block-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+// HINT LEFT
+
+.wrap-hint-left {
+  @include borderCellHint() {
+    gap: 5px;
+    padding-right: 5px;
+    height: $widthCell;
+    border-right: none;
+    border-left: none;
+  }
+}
+
+// HINT TOP
+
+.hint-top {
+  display: flex;
+}
+
+.wrap-hint-top {
+  display: flex;
+
+  @include borderCellHint {
+    flex-direction: column;
+    width: $widthCell;
+    border-top: none;
+    border-bottom: none;
+  }
+}
+
+// GAME
+
+.game {
+  display: grid;
+  grid-template-columns: repeat(var(--cellWrapCount), 1fr);
+}
+
+.cell-wrap {
+  border: $borderBold;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
+.cell {
+  cursor: pointer;
+  width: $widthCell;
+  height: $widthCell;
+  border: 1px solid $cellColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 25px;
+  color: $clickColorWrong;
+
+  &:hover {
+    border-color: $mainColor;
+  }
+}
+
+.active {
+  background-color: $mainColor;
+  border: $border;
+}
+
+.mark-wrong::before {
+  content: 'x';
+}
+
+.mark-wrong:hover {
+  border: $borderWrong;
+}
