@@ -1,5 +1,6 @@
 import { game } from './gameData.js';
 import { showHints } from './showHints.js';
+import { fillField } from './fillField.js';
 
 export default function renderPage() {
   const body = document.body;
@@ -47,7 +48,7 @@ export default function renderPage() {
   const selectGameNames = document.createElement('select');
   selectGameNames.classList.add('select-style');
 
-  game.valuesGameNames10.forEach((name) => {
+  game.valuesGameNames5.forEach((name) => {
     const option = document.createElement('option');
     option.value = name;
     option.textContent = name;
@@ -96,6 +97,9 @@ export default function renderPage() {
   const [wrapHintLeft, wrapHintTop] = showHints(game);
   hintLeft.append(wrapHintLeft);
   hintTop.append(wrapHintTop);
+
+  const cellWrap = fillField(game);
+  gameBlock.append(cellWrap);
 
   blockRight.append(hintTop, gameBlock);
   blockLeft.append(selectSizes, selectGameNames, hintLeft);
