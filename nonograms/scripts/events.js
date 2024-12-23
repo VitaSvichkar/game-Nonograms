@@ -6,6 +6,7 @@ export function events(obj) {
   const selectSizes = document.querySelector('.select-sizes');
   const selectNames = document.querySelector('.select-names');
   const gameBlock = document.querySelector('.game');
+  const btnReset = document.querySelector('.reset');
 
   selectNames.addEventListener('change', () => {
     obj.curName = selectNames.value;
@@ -28,4 +29,8 @@ export function events(obj) {
   gameBlock.addEventListener('click', (e) => colorCell(e));
 
   gameBlock.addEventListener('contextmenu', (e) => colorCell(e));
+
+  btnReset.addEventListener('click', () => {
+    updateGame(obj);
+  });
 }
