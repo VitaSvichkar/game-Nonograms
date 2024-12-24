@@ -36,6 +36,9 @@ export default function renderPage() {
   const valuesTheme = ['light', 'dark', 'secret'];
   updateSelect(valuesTheme, selectTheme);
 
+  const wrapSelect = document.createElement('div');
+  wrapSelect.classList.add('wrap-select');
+
   // SELECT NAMES
 
   const selectGameNames = document.createElement('select');
@@ -74,7 +77,8 @@ export default function renderPage() {
   gameBlock.style.setProperty('--cellWrapCount', game.cellWrapInRow);
 
   blockRight.append(hintTop, gameBlock);
-  blockLeft.append(selectSizes, selectGameNames, hintLeft);
+  wrapSelect.append(selectSizes, selectGameNames);
+  blockLeft.append(wrapSelect, hintLeft);
   wrapGame.append(blockLeft, blockRight);
   gameButtons.append(selectTheme, btnRandom, btnSolution, btnReset);
   wrap.append(gameButtons, wrapGame);
