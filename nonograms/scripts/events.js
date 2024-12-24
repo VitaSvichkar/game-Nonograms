@@ -7,6 +7,8 @@ export function events(obj) {
   const selectNames = document.querySelector('.select-names');
   const gameBlock = document.querySelector('.game');
   const btnReset = document.querySelector('.reset');
+  const hintLeft = document.querySelector('.hint-left');
+  const hintTop = document.querySelector('.hint-top');
 
   selectNames.addEventListener('change', () => {
     obj.curName = selectNames.value;
@@ -25,6 +27,14 @@ export function events(obj) {
     updateSelect(arrNames, selectNames);
     updateGame(obj);
   });
+
+  hintLeft.addEventListener('click', (e) => colorHint(e));
+  hintTop.addEventListener('click', (e) => colorHint(e));
+  function colorHint(e) {
+    if (e.target.tagName === 'SPAN') {
+      e.target.classList.toggle('hint-done');
+    }
+  }
 
   gameBlock.addEventListener('click', (e) => colorCell(e));
 
