@@ -1,22 +1,23 @@
 function renderHints(arrayHints, obj) {
   const arrWraps = [];
+  let index = 0;
 
   for (let i = 0; i < obj.cellWrapInRow; i += 1) {
     const wrap = document.createElement('div');
 
-    for (let i = 0; i < obj.cellsInRow; i += 1) {
+    for (let j = 0; j < obj.cellsInRow; j += 1) {
       const hints = document.createElement('div');
       hints.classList.add('hints');
 
-      arrayHints[i].forEach((el) => {
+      arrayHints[index].forEach((el) => {
         const span = document.createElement('span');
-        span.textContent = el;
+        span.textContent = el === 0 ? '' : el;
         hints.append(span);
       });
 
+      index += 1;
       wrap.append(hints);
     }
-
     arrWraps.push(wrap);
   }
 
