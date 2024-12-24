@@ -4,7 +4,9 @@
 
 $widthCell: 30px;
 $mainColor: rgb(49, 49, 51);
-$cellColor: rgb(215, 215, 215);
+$wrapColor: #e8f3f8;
+$cellColorBorder: rgb(215, 215, 215);
+$hintBlockColor: rgb(255, 255, 255);
 $clickColorWrong: rgb(249, 98, 98);
 $border: 1px solid $mainColor;
 $borderBold: 2px solid $mainColor;
@@ -16,9 +18,21 @@ $borderWrong: 1px solid $clickColorWrong;
   .hints {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
-    border: 1px solid $cellColor;
     @content;
+
+    & > * {
+      width: $widthCell;
+      height: $widthCell;
+      border: 1px solid $cellColorBorder;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        color: #f94141;
+      }
+    }
   }
 }
 
@@ -55,13 +69,14 @@ body {
   & > * {
     border-radius: 5px;
     padding: 10px;
-    border: 1px solid rgb(190, 190, 190);
+
+    border: 1px solid $cellColorBorder;
     outline: none;
     cursor: pointer;
     background-color: transparent;
 
     &:hover {
-      border: 1px solid rgb(27, 25, 25);
+      border: $border;
     }
   }
 
@@ -79,6 +94,8 @@ body {
 .wrap-game {
   display: flex;
   justify-content: flex-end;
+  padding: 10px;
+  background-color: $wrapColor;
 }
 
 .select-style {
@@ -87,21 +104,38 @@ body {
   font-family: 'Courier New', Courier, monospace;
   outline: none;
   border-radius: 5px;
-  background-color: rgb(220, 239, 254);
+  background-color: $hintBlockColor;
+}
+
+.block-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .block-left {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 8px;
+}
+
+.wrap-select {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
 }
 
 // HINT LEFT
 
+.hint-left {
+  align-self: flex-end;
+  background-color: $hintBlockColor;
+}
+
 .wrap-hint-left {
   @include borderCellHint() {
-    gap: 5px;
-    padding-right: 5px;
     height: $widthCell;
     border-right: none;
     border-left: none;
@@ -112,6 +146,7 @@ body {
 
 .hint-top {
   display: flex;
+  background-color: $hintBlockColor;
 }
 
 .wrap-hint-top {
@@ -128,6 +163,8 @@ body {
 // GAME
 
 .game {
+  background-color: $hintBlockColor;
+
   display: grid;
   grid-template-columns: repeat(var(--cellWrapCount), 1fr);
 }
@@ -142,7 +179,7 @@ body {
   cursor: pointer;
   width: $widthCell;
   height: $widthCell;
-  border: 1px solid $cellColor;
+  border: 1px solid $cellColorBorder;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -157,6 +194,10 @@ body {
 .active {
   background-color: $mainColor;
   border: $border;
+
+  &:hover {
+    border: 1px solid $cellColorBorder;
+  }
 }
 
 .mark-wrong::before {
@@ -165,4 +206,8 @@ body {
 
 .mark-wrong:hover {
   border: $borderWrong;
+}
+
+.hint-done {
+  color: $cellColorBorder;
 }

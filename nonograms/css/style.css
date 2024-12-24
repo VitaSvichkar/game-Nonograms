@@ -55,13 +55,13 @@ body {
 .game-btns > * {
   border-radius: 5px;
   padding: 10px;
-  border: 1px solid rgb(190, 190, 190);
+  border: 1px solid rgb(215, 215, 215);
   outline: none;
   cursor: pointer;
   background-color: transparent;
 }
 .game-btns > *:hover {
-  border: 1px solid rgb(27, 25, 25);
+  border: 1px solid rgb(49, 49, 51);
 }
 .game-btns .reset {
   color: aliceblue;
@@ -79,6 +79,8 @@ body {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
+  padding: 10px;
+  background-color: #e8f3f8;
 }
 
 .select-style {
@@ -88,7 +90,20 @@ body {
   font-family: "Courier New", Courier, monospace;
   outline: none;
   border-radius: 5px;
-  background-color: rgb(220, 239, 254);
+  background-color: rgb(255, 255, 255);
+}
+
+.block-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .block-left {
@@ -102,6 +117,27 @@ body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  gap: 8px;
+}
+
+.wrap-select {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 7px;
+}
+
+.hint-left {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+  background-color: rgb(255, 255, 255);
 }
 
 .wrap-hint-left {
@@ -114,21 +150,34 @@ body {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border: 1px solid rgb(215, 215, 215);
-  gap: 5px;
-  padding-right: 5px;
   height: 30px;
   border-right: none;
   border-left: none;
+}
+.wrap-hint-left .hints > * {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgb(215, 215, 215);
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.wrap-hint-left .hints > *:hover {
+  color: #f94141;
 }
 
 .hint-top {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  background-color: rgb(255, 255, 255);
 }
 
 .wrap-hint-top {
@@ -144,10 +193,6 @@ body {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border: 1px solid rgb(215, 215, 215);
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -156,8 +201,27 @@ body {
   border-top: none;
   border-bottom: none;
 }
+.wrap-hint-top .hints > * {
+  width: 30px;
+  height: 30px;
+  border: 1px solid rgb(215, 215, 215);
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.wrap-hint-top .hints > *:hover {
+  color: #f94141;
+}
 
 .game {
+  background-color: rgb(255, 255, 255);
   display: grid;
   grid-template-columns: repeat(var(--cellWrapCount), 1fr);
 }
@@ -193,6 +257,9 @@ body {
   background-color: rgb(49, 49, 51);
   border: 1px solid rgb(49, 49, 51);
 }
+.active:hover {
+  border: 1px solid rgb(215, 215, 215);
+}
 
 .mark-wrong::before {
   content: "x";
@@ -200,4 +267,8 @@ body {
 
 .mark-wrong:hover {
   border: 1px solid rgb(249, 98, 98);
+}
+
+.hint-done {
+  color: rgb(215, 215, 215);
 }/*# sourceMappingURL=style.css.map */
