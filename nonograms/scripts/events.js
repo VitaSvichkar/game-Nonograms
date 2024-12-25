@@ -1,6 +1,7 @@
-import { updateSelect } from './updateSelect.js';
 import { updateGame } from './updateGame.js';
 import { colorCell } from './colorCell.js';
+import { chooseSize } from './chooseSize.js';
+import { randomGame } from './randomGame.js';
 
 export function events(obj) {
   const selectSizes = document.querySelector('.select-sizes');
@@ -9,6 +10,7 @@ export function events(obj) {
   const btnReset = document.querySelector('.reset');
   const hintLeft = document.querySelector('.hint-left');
   const hintTop = document.querySelector('.hint-top');
+  const btnRandom = document.querySelector('.random-btn');
 
   selectNames.addEventListener('change', () => {
     obj.curName = selectNames.value;
@@ -16,31 +18,30 @@ export function events(obj) {
   });
 
   selectSizes.addEventListener('change', () => {
-    obj.curSize = selectSizes.value;
-    obj.cellWrapInRow = selectSizes.value / obj.cellsInRow;
-
-    gameBlock.style.setProperty('--cellWrapCount', obj.cellWrapInRow);
-    const selectNames = document.querySelector('.select-names');
-    const keyNames = `valuesGameNames${obj.curSize}`;
-    const arrNames = obj[keyNames];
-    obj.curName = arrNames[0];
-    updateSelect(arrNames, selectNames);
+    chooseSize(obj, selectSizes.value);
     updateGame(obj);
   });
 
-  hintLeft.addEventListener('click', (e) => colorHint(e));
-  hintTop.addEventListener('click', (e) => colorHint(e));
+  hintLeft.addEventListener('click', colorHint);
+  hintTop.addEventListener('click', colorHint);
   function colorHint(e) {
     if (e.target.tagName === 'SPAN') {
       e.target.classList.toggle('hint-done');
     }
   }
 
-  gameBlock.addEventListener('click', (e) => colorCell(e));
+  gameBlock.addEventListener('click', colorCell);
+  gameBlock.addEventListener('contextmenu', colorCell);
+  btnReset.addEventListener('click', () => updateGame(obj));
 
-  gameBlock.addEventListener('contextmenu', (e) => colorCell(e));
+  btnRandom.addEventListener('click', () => {
+    const [size, name] = randomGame(obj);
+    selectSizes.value = size;
 
-  btnReset.addEventListener('click', () => {
+    chooseSize(obj, selectSizes.value, name);
+
+    selectNames.value = name;
+
     updateGame(obj);
   });
 }
