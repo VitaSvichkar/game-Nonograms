@@ -78,6 +78,20 @@ export default function renderPage() {
   gameBlock.classList.add('game');
   gameBlock.style.setProperty('--cellWrapCount', game.cellWrapInRow);
 
+  const overlay = document.createElement('div');
+  overlay.classList.add('overlay');
+
+  const modal = document.createElement('div');
+  modal.classList.add('modal');
+
+  const modalClose = document.createElement('span');
+  modalClose.classList.add('modal-close');
+  modalClose.innerHTML = `&#215;`;
+
+  const modalTextResult = document.createElement('div');
+  modalTextResult.classList.add('modal-text-result');
+  modalTextResult.innerHTML = `Great!<br> You have solved the nonogram in <span><b>01:20</b></span> seconds!`;
+
   blockRight.append(hintTop, gameBlock);
   wrapSelect.append(selectSizes, selectGameNames);
   blockLeft.append(wrapSelect, hintLeft);
@@ -85,7 +99,9 @@ export default function renderPage() {
   gameButtons.append(btnTheme, btnRandom, btnSolution, btnReset);
   wrap.append(gameButtons, wrapGame);
   main.append(wrap);
-  body.append(main);
+  modal.append(modalClose, modalTextResult);
+  overlay.append(modal);
+  body.append(overlay, main);
 
   game.curName = game.valuesGameNames5[0];
 
