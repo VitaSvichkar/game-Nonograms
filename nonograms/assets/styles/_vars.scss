@@ -1,0 +1,40 @@
+$widthCell: 30px;
+
+:root {
+  --cellWrapCount: 1;
+
+  --themeBg: rgb(242, 242, 242);
+  --accent: rgb(190, 195, 250);
+  --accentHover: rgba(157, 159, 224, 0.841);
+  --accentSecond: rgb(253, 33, 172);
+  --colorText: rgb(0, 0, 0);
+  --bgGame: rgb(255, 255, 255);
+  --bgBtn: rgb(255, 255, 255);
+  --colorWrapCell: rgb(49, 49, 51);
+  --colorActiveCell: rgb(49, 49, 51);
+  --colorCell: rgb(204, 209, 217);
+  --colorHintDone: rgb(204, 209, 217);
+  --border: 1px solid var(--colorCell);
+  --borderBold: 2px solid var(--colorWrapCell);
+  --borderWrap: 1px solid var(--colorCell);
+  --colorHoverHint: rgb(233, 95, 95);
+  --filter: invert(0);
+}
+
+.dark-theme {
+  --themeBg: rgb(30, 30, 30);
+  --accentHover: rgb(61, 92, 82);
+  --accent: rgb(59, 112, 96);
+  --accentSecond: rgb(7, 77, 126);
+  --colorText: rgb(255, 251, 245);
+  --bgGame: rgb(27, 27, 29);
+  --bgBtn: rgb(64, 63, 63);
+  --colorWrapCell: rgb(19, 19, 19);
+  --colorActiveCell: rgb(255, 251, 245);
+  --colorCell: rgb(14, 14, 14);
+  --colorHintDone: rgb(92, 92, 92);
+  --border: 1px solid var(--colorCell);
+  --borderBold: 2px solid var(--colorWrapCell);
+  --borderWrap: 1px solid rgb(96, 96, 96);
+  --filter: invert(1);
+}

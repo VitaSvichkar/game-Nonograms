@@ -6,11 +6,16 @@ import { randomGame } from './randomGame.js';
 export function events(obj) {
   const selectSizes = document.querySelector('.select-sizes');
   const selectNames = document.querySelector('.select-names');
+  const btnTheme = document.querySelector('.theme');
   const gameBlock = document.querySelector('.game');
   const btnReset = document.querySelector('.reset');
   const hintLeft = document.querySelector('.hint-left');
   const hintTop = document.querySelector('.hint-top');
   const btnRandom = document.querySelector('.random-btn');
+
+  btnTheme.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+  });
 
   selectNames.addEventListener('change', () => {
     obj.curName = selectNames.value;

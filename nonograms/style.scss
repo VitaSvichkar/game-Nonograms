@@ -1,19 +1,7 @@
-:root {
-  --cellwrapcount: 1;
-}
-
-$widthCell: 30px;
-$mainColor: rgb(49, 49, 51);
-$wrapColor: #e8f3f8;
-$cellColorBorder: rgb(215, 215, 215);
-$hintBlockColor: rgb(255, 255, 255);
-$clickColorWrong: rgb(249, 98, 98);
-$border: 1px solid $mainColor;
-$borderBold: 2px solid $mainColor;
-$borderWrong: 1px solid $clickColorWrong;
+@import './assets/styles/vars';
 
 @mixin borderCellHint {
-  border: $borderBold;
+  border: var(--borderBold);
 
   .hints {
     display: flex;
@@ -23,14 +11,14 @@ $borderWrong: 1px solid $clickColorWrong;
     & > * {
       width: $widthCell;
       height: $widthCell;
-      border: 1px solid $cellColorBorder;
+      border: var(--border);
       cursor: pointer;
       display: flex;
       justify-content: center;
       align-items: center;
 
       &:hover {
-        color: #f94141;
+        color: var(--colorHoverHint);
       }
     }
   }
@@ -43,8 +31,12 @@ $borderWrong: 1px solid $clickColorWrong;
 }
 
 body {
+  background-color: var(--themeBg);
   height: 100vh;
   font-family: 'Courier New', Courier, monospace;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .main {
@@ -55,6 +47,7 @@ body {
   width: 100%;
   height: 100%;
 }
+
 .wrap {
   display: flex;
   flex-direction: column;
@@ -64,29 +57,51 @@ body {
 
 .game-btns {
   display: flex;
+  align-items: center;
   gap: 10px;
 
   & > * {
     border-radius: 5px;
     padding: 10px;
-
-    border: 1px solid $cellColorBorder;
+    border: var(--borderWrap);
+    background-color: var(--bgBtn);
     outline: none;
     cursor: pointer;
+    color: var(--colorText);
+    &:hover {
+      border-color: var(--accentHover);
+    }
+  }
+
+  .theme {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    border-radius: 50px;
+    border: none;
+    padding: 2px;
     background-color: transparent;
+    font-size: 10px;
+    background-image: url('../assets/img/light.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 30px;
+    filter: var(--filter);
+    transition: transform 0.14s linear;
 
     &:hover {
-      border: $border;
+      transform: rotate(20deg);
+      filter: invert(0.5);
     }
   }
 
   .reset {
-    color: aliceblue;
+    color: white;
     border: none;
-    background-color: $clickColorWrong;
+    background-color: var(--accent);
 
     &:hover {
-      background-color: #f94141;
+      background-color: var(--accentHover);
     }
   }
 }
@@ -94,17 +109,23 @@ body {
 .wrap-game {
   display: flex;
   justify-content: flex-end;
-  padding: 10px;
-  background-color: $wrapColor;
+  padding: 20px;
+  color: var(--colorText);
+  background-color: var(--bgGame);
+  border: var(--borderWrap);
+  border-radius: 10px;
 }
 
 .select-style {
   width: 90%;
   align-self: flex-start;
   font-family: 'Courier New', Courier, monospace;
+  color: var(--colorText);
+  color: white;
+  border: none;
   outline: none;
   border-radius: 5px;
-  background-color: $hintBlockColor;
+  background-color: var(--accent);
 }
 
 .block-right {
@@ -131,22 +152,16 @@ body {
 
 .hint-left {
   align-self: flex-end;
-  background-color: $hintBlockColor;
 }
 
 .wrap-hint-left {
-  @include borderCellHint() {
-    height: $widthCell;
-    border-right: none;
-    border-left: none;
-  }
+  @include borderCellHint();
 }
 
 // HINT TOP
 
 .hint-top {
   display: flex;
-  background-color: $hintBlockColor;
 }
 
 .wrap-hint-top {
@@ -163,14 +178,13 @@ body {
 // GAME
 
 .game {
-  background-color: $hintBlockColor;
-
   display: grid;
   grid-template-columns: repeat(var(--cellWrapCount), 1fr);
 }
 
 .cell-wrap {
-  border: $borderBold;
+  border: var(--borderBold);
+
   display: grid;
   grid-template-columns: repeat(5, 1fr);
 }
@@ -179,24 +193,23 @@ body {
   cursor: pointer;
   width: $widthCell;
   height: $widthCell;
-  border: 1px solid $cellColorBorder;
+  border: var(--border);
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 25px;
-  color: $clickColorWrong;
+  color: var(--accentSecond);
 
   &:hover {
-    border-color: $mainColor;
+    border-color: var(--colorActiveCell);
   }
 }
 
 .active {
-  background-color: $mainColor;
-  border: $border;
+  background-color: var(--colorActiveCell);
 
   &:hover {
-    border: 1px solid $cellColorBorder;
+    border: var(--border);
   }
 }
 
@@ -205,9 +218,11 @@ body {
 }
 
 .mark-wrong:hover {
-  border: $borderWrong;
+  border: 1px solid var(--accentSecond);
 }
 
-.hint-done {
-  color: $cellColorBorder;
+.hints {
+  .hint-done {
+    color: var(--colorHintDone);
+  }
 }

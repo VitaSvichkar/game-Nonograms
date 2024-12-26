@@ -29,12 +29,14 @@ export default function renderPage() {
   btnReset.classList.add('reset');
   btnReset.textContent = 'reset';
 
-  // SELECT THEME
+  // THEME
 
-  const selectTheme = document.createElement('select');
-  selectTheme.classList.add('theme');
-  const valuesTheme = ['light', 'dark', 'secret'];
-  updateSelect(valuesTheme, selectTheme);
+  const btnTheme = document.createElement('button');
+  btnTheme.classList.add('theme');
+  // btnTheme.innerText = 'dark';
+
+  // const valuesTheme = ['light', 'dark', 'secret'];
+  // updateSelect(valuesTheme, selectTheme);
 
   const wrapSelect = document.createElement('div');
   wrapSelect.classList.add('wrap-select');
@@ -80,7 +82,7 @@ export default function renderPage() {
   wrapSelect.append(selectSizes, selectGameNames);
   blockLeft.append(wrapSelect, hintLeft);
   wrapGame.append(blockLeft, blockRight);
-  gameButtons.append(selectTheme, btnRandom, btnSolution, btnReset);
+  gameButtons.append(btnTheme, btnRandom, btnSolution, btnReset);
   wrap.append(gameButtons, wrapGame);
   main.append(wrap);
   body.append(main);
