@@ -1,10 +1,12 @@
 export function updateSelect(arr, domElem) {
   domElem.innerHTML = '';
+  const levels = ['easy', 'medium', 'hard'];
 
-  arr.forEach((el) => {
+  arr.forEach((el, ind) => {
     const option = document.createElement('option');
     option.value = el;
-    option.textContent = typeof el === 'number' ? `${el}x${el}` : el;
+    option.textContent =
+      typeof el === 'number' ? `${levels[ind]} ${el}x${el}` : el;
     domElem.append(option);
   });
 
