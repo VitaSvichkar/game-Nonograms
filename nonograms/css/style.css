@@ -348,7 +348,9 @@ body {
 .overlay {
   position: fixed;
   z-index: 100;
-  display: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -358,6 +360,15 @@ body {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.729);
+  visibility: hidden;
+  opacity: 0;
+  -webkit-transition: visibility 0.2s ease, opacity 0.2s ease;
+  transition: visibility 0.2s ease, opacity 0.2s ease;
+}
+
+.overlay-active {
+  visibility: visible;
+  opacity: 1;
 }
 
 .modal {
