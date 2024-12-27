@@ -4,6 +4,8 @@ export function fillField() {
   return function (obj) {
     gameBlock.innerHTML = '';
     const sumCell = obj.cellWrapInRow * obj.cellWrapInRow;
+    obj.gameState = new Array(obj.curSize * obj.curSize).fill(0);
+    let index = 0;
 
     for (let i = 0; i < sumCell; i += 1) {
       const cellWrap = document.createElement('div');
@@ -12,6 +14,8 @@ export function fillField() {
       for (let j = 0; j < obj.cellsInRow * obj.cellsInRow; j += 1) {
         const cell = document.createElement('div');
         cell.classList.add('cell');
+        cell.setAttribute('data-index', index);
+        index++;
         cellWrap.append(cell);
       }
 

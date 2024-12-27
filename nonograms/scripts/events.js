@@ -44,7 +44,7 @@ export function events(obj) {
   }
 
   gameBlock.addEventListener('click', (e) => {
-    colorCell(e);
+    colorCell(e, obj);
 
     if (!isTimerStart) {
       updateTimer = setInterval(startTimer, 1000);
@@ -54,7 +54,10 @@ export function events(obj) {
     }
   });
 
-  gameBlock.addEventListener('contextmenu', colorCell);
+  gameBlock.addEventListener('contextmenu', (e) => {
+    colorCell(e, obj);
+  });
+
   btnReset.addEventListener('click', () => {
     updateGame(obj);
 

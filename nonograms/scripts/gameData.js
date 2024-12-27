@@ -9,6 +9,8 @@ export const game = {
   valuesGameNames10: null,
   valuesGameNames15: null,
 
+  gameState: null,
+
   variants: {
     size5: [
       {
