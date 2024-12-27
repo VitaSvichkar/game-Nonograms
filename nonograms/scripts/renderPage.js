@@ -1,9 +1,9 @@
-import { game } from './gameData.js';
+// import { game } from './gameData.js';
 import { updateSelect } from './updateSelect.js';
 import { updateGame } from './updateGame.js';
-import { events } from './events.js';
+// import { events } from './events.js';
 
-export default function renderPage() {
+export default function renderPage(game) {
   const body = document.body;
 
   const main = document.createElement('div');
@@ -46,6 +46,8 @@ export default function renderPage() {
   const selectGameNames = document.createElement('select');
   selectGameNames.classList.add('select-style');
   selectGameNames.classList.add('select-names');
+  console.log(game);
+  console.log(game.valuesGameNames5);
   updateSelect(game.valuesGameNames5, selectGameNames);
 
   // SELECT SIZES
@@ -55,6 +57,10 @@ export default function renderPage() {
   selectSizes.classList.add('select-sizes');
   const valuesSizes = [5, 10, 15];
   updateSelect(valuesSizes, selectSizes);
+
+  const timer = document.createElement('div');
+  timer.classList.add('timer');
+  timer.innerText = `00:00`;
 
   game.cellWrapInRow = selectSizes.value / game.cellsInRow;
   game.curSize = selectSizes.value;
@@ -96,7 +102,7 @@ export default function renderPage() {
   wrapSelect.append(selectSizes, selectGameNames);
   blockLeft.append(wrapSelect, hintLeft);
   wrapGame.append(blockLeft, blockRight);
-  gameButtons.append(btnTheme, btnRandom, btnSolution, btnReset);
+  gameButtons.append(timer, btnTheme, btnRandom, btnSolution, btnReset);
   wrap.append(gameButtons, wrapGame);
   main.append(wrap);
   modal.append(modalClose, modalTextResult);
@@ -106,5 +112,5 @@ export default function renderPage() {
   game.curName = game.valuesGameNames5[0];
 
   updateGame(game);
-  events(game);
+  // events(game);
 }

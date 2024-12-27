@@ -93,7 +93,7 @@ body {
           align-items: center;
   gap: 10px;
 }
-.game-btns > * {
+.game-btns > *:not(.timer) {
   border-radius: 5px;
   padding: 10px;
   border: var(--borderWrap);
@@ -102,7 +102,7 @@ body {
   cursor: pointer;
   color: var(--colorText);
 }
-.game-btns > *:hover {
+.game-btns > *:not(.timer):hover {
   border-color: var(--accentHover);
 }
 .game-btns .theme {
@@ -131,6 +131,10 @@ body {
           transform: rotate(20deg);
   -webkit-filter: invert(0.5);
           filter: invert(0.5);
+}
+.game-btns .timer {
+  color: var(--colorText);
+  padding: 5px;
 }
 .game-btns .reset {
   color: white;

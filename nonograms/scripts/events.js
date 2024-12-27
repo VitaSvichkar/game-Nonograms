@@ -2,6 +2,7 @@ import { updateGame } from './updateGame.js';
 import { colorCell } from './colorCell.js';
 import { chooseSize } from './chooseSize.js';
 import { randomGame } from './randomGame.js';
+import { timer, stopTimer } from './startTimer.js';
 
 export function events(obj) {
   const selectSizes = document.querySelector('.select-sizes');
@@ -12,6 +13,9 @@ export function events(obj) {
   const hintLeft = document.querySelector('.hint-left');
   const hintTop = document.querySelector('.hint-top');
   const btnRandom = document.querySelector('.random-btn');
+  let startTimer = timer();
+  let isTimerStart = false;
+  let updateTimer;
 
   btnTheme.addEventListener('click', () => {
     document.body.classList.toggle('dark-theme');
@@ -20,11 +24,15 @@ export function events(obj) {
   selectNames.addEventListener('change', () => {
     obj.curName = selectNames.value;
     updateGame(obj);
+    isTimerStart = stopTimer(updateTimer);
+    startTimer = timer();
   });
 
   selectSizes.addEventListener('change', () => {
     chooseSize(obj, selectSizes.value);
     updateGame(obj);
+    isTimerStart = stopTimer(updateTimer);
+    startTimer = timer();
   });
 
   hintLeft.addEventListener('click', colorHint);
@@ -35,11 +43,29 @@ export function events(obj) {
     }
   }
 
-  gameBlock.addEventListener('click', colorCell);
+  gameBlock.addEventListener('click', (e) => {
+    colorCell(e);
+
+    if (!isTimerStart) {
+      updateTimer = setInterval(startTimer, 1000);
+      isTimerStart = true;
+    } else {
+      return;
+    }
+  });
+
   gameBlock.addEventListener('contextmenu', colorCell);
-  btnReset.addEventListener('click', () => updateGame(obj));
+  btnReset.addEventListener('click', () => {
+    updateGame(obj);
+
+    isTimerStart = stopTimer(updateTimer);
+    startTimer = timer();
+  });
 
   btnRandom.addEventListener('click', () => {
+    isTimerStart = stopTimer(updateTimer);
+    startTimer = timer();
+
     const [size, name] = randomGame(obj);
     selectSizes.value = size;
 

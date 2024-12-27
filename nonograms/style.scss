@@ -60,7 +60,7 @@ body {
   align-items: center;
   gap: 10px;
 
-  & > * {
+  & > *:not(.timer) {
     border-radius: 5px;
     padding: 10px;
     border: var(--borderWrap);
@@ -93,6 +93,11 @@ body {
       transform: rotate(20deg);
       filter: invert(0.5);
     }
+  }
+
+  .timer {
+    color: var(--colorText);
+    padding: 5px;
   }
 
   .reset {
