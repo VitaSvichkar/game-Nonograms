@@ -60,7 +60,7 @@ export default function renderPage(game) {
 
   const timer = document.createElement('div');
   timer.classList.add('timer');
-  timer.innerText = `00:00`;
+  timer.innerText = `0${game.minutes}:0${game.seconds}`;
 
   game.cellWrapInRow = selectSizes.value / game.cellsInRow;
   game.curSize = selectSizes.value;
@@ -96,7 +96,7 @@ export default function renderPage(game) {
 
   const modalTextResult = document.createElement('div');
   modalTextResult.classList.add('modal-text-result');
-  modalTextResult.innerHTML = `Great!<br> You have solved the nonogram in <span><b>01:20</b></span> seconds!`;
+  modalTextResult.innerHTML = `Great!<br> You have solved the nonogram in <span><b>0${game.minutes}:0${game.seconds}</b></span> seconds!`;
 
   blockRight.append(hintTop, gameBlock);
   wrapSelect.append(selectSizes, selectGameNames);

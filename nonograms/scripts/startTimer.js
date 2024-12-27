@@ -1,5 +1,6 @@
-export function timer() {
+export function timer(obj) {
   const timer = document.querySelector('.timer');
+
   let min = 0;
   let sec = 0;
 
@@ -11,16 +12,18 @@ export function timer() {
       sec = 0;
     }
 
-    const resSec = sec <= 9 ? `0${sec}` : sec;
-    const resMin = min < 9 ? `0${min}` : min;
+    obj.seconds = sec <= 9 ? `0${sec}` : sec;
+    obj.minutes = min < 9 ? `0${min}` : min;
 
-    timer.innerText = `${resMin}:${resSec}`;
+    timer.innerText = `${obj.minutes}:${obj.seconds}`;
+    console.log(obj.seconds);
   };
 }
 
-export function stopTimer(fun) {
-  const timer = document.querySelector('.timer');
+export function stopTimer(fun, obj) {
   clearInterval(fun);
-  timer.innerText = '00:00';
+  obj.minutes = 0;
+  obj.seconds = 0;
+
   return false;
 }

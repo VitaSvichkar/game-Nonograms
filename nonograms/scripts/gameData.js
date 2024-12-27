@@ -10,6 +10,8 @@ export const game = {
   valuesGameNames15: null,
 
   gameState: null,
+  minutes: 0,
+  seconds: 0,
 
   variants: {
     size5: [
