@@ -1,4 +1,4 @@
-export function timer(obj) {
+export function initTimer(obj) {
   const timer = document.querySelector('.timer');
 
   let min = 0;
