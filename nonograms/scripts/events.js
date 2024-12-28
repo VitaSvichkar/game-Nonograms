@@ -2,7 +2,7 @@ import { updateGame } from './updateGame.js';
 import { colorCell } from './colorCell.js';
 import { chooseSize } from './chooseSize.js';
 import { randomGame } from './randomGame.js';
-import { timer, stopTimer } from './startTimer.js';
+import { initTimer, stopTimer } from './startTimer.js';
 import { showModal } from './showModal.js';
 import { updateGameState } from './updateGameState.js';
 import { checkResultGame } from './checkResultGame.js';
@@ -18,83 +18,115 @@ export function events(obj) {
   const btnRandom = document.querySelector('.random-btn');
   const modalClose = document.querySelector('.modal-close');
   const overlay = document.querySelector('.overlay');
-  let startTimer = timer(obj);
+  const btnSolution = document.querySelector('.solution-btn');
+  let createTimerFunction = initTimer(obj);
   let isTimerStart = false;
-  let updateTimer;
+  let timerInterval;
 
   btnTheme.addEventListener('click', () => {
     document.body.classList.toggle('dark-theme');
   });
 
-  selectNames.addEventListener('change', () => {
-    obj.curName = selectNames.value;
-    updateGame(obj);
-    isTimerStart = stopTimer(updateTimer, obj);
-    startTimer = timer(obj);
-  });
-
-  selectSizes.addEventListener('change', () => {
-    chooseSize(obj, selectSizes.value);
-    updateGame(obj);
-    isTimerStart = stopTimer(updateTimer, obj);
-    startTimer = timer(obj);
-  });
+  selectNames.addEventListener('change', onclickSelects);
+  selectSizes.addEventListener('change', onclickSelects);
 
   hintLeft.addEventListener('click', colorHint);
   hintTop.addEventListener('click', colorHint);
 
-  gameBlock.addEventListener('click', (e) => {
-    const ind = colorCell(e, obj);
-    updateGameState(obj, ind);
-    isWon(obj);
+  gameBlock.addEventListener('click', onClickGameBlock);
+  gameBlock.addEventListener('contextmenu', onContextMenuGameBlock);
 
-    if (!isTimerStart) {
-      updateTimer = setInterval(startTimer, 1000);
-      isTimerStart = true;
-    } else {
-      return;
-    }
-  });
+  btnReset.addEventListener('click', onClickButtons);
+  btnRandom.addEventListener('click', onClickButtons);
 
-  gameBlock.addEventListener('contextmenu', (e) => {
-    colorCell(e, obj);
-    isWon(obj);
-  });
+  btnSolution.addEventListener('click', () => {
+    obj.gameState = obj.curGame.solution;
+    const solution = obj.gameState;
+    btnReset.click();
 
-  btnReset.addEventListener('click', () => {
-    updateGame(obj);
-    isTimerStart = stopTimer(updateTimer, obj);
-    startTimer = timer(obj);
-  });
-
-  btnRandom.addEventListener('click', () => {
-    isTimerStart = stopTimer(updateTimer, obj);
-    startTimer = timer(obj);
-    const [size, name] = randomGame(obj);
-    selectSizes.value = size;
-    chooseSize(obj, selectSizes.value, name);
-    selectNames.value = name;
-    updateGame(obj);
+    document.querySelectorAll('.cell').forEach((el, ind) => {
+      if (solution[ind] === 1) {
+        el.classList.add('active');
+      }
+    });
+    gameBlock.removeEventListener('click', onClickGameBlock);
+    gameBlock.removeEventListener('contextmenu', onContextMenuGameBlock);
   });
 
   modalClose.addEventListener('click', () => {
     overlay.classList.remove('overlay-active');
     isTimerStart = false;
-    startTimer = timer(obj);
+    createTimerFunction = initTimer(obj);
     updateGame(obj);
   });
 
   function isWon(obj) {
     const isWon = checkResultGame(obj);
+
     if (isWon) {
       showModal(obj);
-      stopTimer(updateTimer, obj);
+      stopTimer(timerInterval, obj);
     }
   }
 
   function colorHint(e) {
     if (e.target.tagName === 'SPAN') {
       e.target.classList.toggle('hint-done');
+    }
+  }
+
+  function addEvent() {
+    gameBlock.addEventListener('click', onClickGameBlock);
+    gameBlock.addEventListener('contextmenu', onContextMenuGameBlock);
+  }
+
+  function onClickButtons(e) {
+    addEvent();
+    isTimerStart = stopTimer(timerInterval, obj);
+    createTimerFunction = initTimer(obj);
+    if (e.target.classList.contains('random-btn')) {
+      const [size, name] = randomGame(obj);
+      selectSizes.value = size;
+      chooseSize(obj, selectSizes.value, name);
+      selectNames.value = name;
+    }
+    updateGame(obj);
+  }
+
+  function onclickSelects(e) {
+    addEvent();
+    if (e.target.classList.contains('select-names')) {
+      obj.curName = selectNames.value;
+      console.log('name');
+    } else {
+      console.log('size');
+
+      chooseSize(obj, selectSizes.value);
+    }
+    updateGame(obj);
+    isTimerStart = stopTimer(timerInterval, obj);
+    createTimerFunction = initTimer(obj);
+  }
+
+  function onClickGameBlock(e) {
+    startTimer();
+    const ind = colorCell(e, obj);
+    updateGameState(obj, ind);
+    isWon(obj);
+  }
+
+  function onContextMenuGameBlock(e) {
+    startTimer();
+    colorCell(e, obj);
+    isWon(obj);
+  }
+
+  function startTimer() {
+    if (!isTimerStart) {
+      timerInterval = setInterval(createTimerFunction, 1000);
+      isTimerStart = true;
+    } else {
+      return;
     }
   }
 }
