@@ -19,6 +19,10 @@ export function events(obj) {
   const modalClose = document.querySelector('.modal-close');
   const overlay = document.querySelector('.overlay');
   const btnSolution = document.querySelector('.solution-btn');
+  const audioLeftClick = new Audio('./assets/sounds/leftClick.mp3');
+  const audioRightClick = new Audio('./assets/sounds/rightClick.mp3');
+  const audioVictory = new Audio('./assets/sounds/victory.mp3');
+
   let createTimerFunction = initTimer(obj);
   let isTimerStart = false;
   let timerInterval;
@@ -64,6 +68,7 @@ export function events(obj) {
     const isWon = checkResultGame(obj);
 
     if (isWon) {
+      playAudio(audioVictory);
       showModal(obj);
       stopTimer(timerInterval, obj);
     }
@@ -109,6 +114,7 @@ export function events(obj) {
   }
 
   function onClickGameBlock(e) {
+    playAudio(audioLeftClick);
     startTimer();
     const ind = colorCell(e, obj);
     updateGameState(obj, ind);
@@ -116,6 +122,8 @@ export function events(obj) {
   }
 
   function onContextMenuGameBlock(e) {
+    playAudio(audioRightClick);
+
     startTimer();
     colorCell(e, obj);
     isWon(obj);
@@ -128,5 +136,10 @@ export function events(obj) {
     } else {
       return;
     }
+  }
+
+  function playAudio(audio) {
+    audio.currentTime = 0;
+    audio.play();
   }
 }
