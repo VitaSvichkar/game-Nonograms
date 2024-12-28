@@ -8,7 +8,7 @@ export const game = {
   valuesGameNames5: null,
   valuesGameNames10: null,
   valuesGameNames15: null,
-
+  data: [],
   gameState: null,
   minutes: 0,
   seconds: 0,
@@ -78,7 +78,7 @@ export const game = {
         ],
         hintLeft: [
           [0, 3],
-          [0, 1],
+          [0, 3],
           [0, 1],
           [0, 1],
           [0, 5],

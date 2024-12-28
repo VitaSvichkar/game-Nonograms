@@ -6,6 +6,7 @@ import { initTimer, stopTimer } from './startTimer.js';
 import { showModal } from './showModal.js';
 import { updateGameState } from './updateGameState.js';
 import { checkResultGame } from './checkResultGame.js';
+import { saveDataInArray } from './saveDataLocalStorage.js';
 
 export function events(obj) {
   const selectSizes = document.querySelector('.select-sizes');
@@ -70,7 +71,10 @@ export function events(obj) {
     if (isWon) {
       playAudio(audioVictory);
       showModal(obj);
+      saveDataInArray(obj);
       stopTimer(timerInterval, obj);
+
+      console.log(obj.data);
     }
   }
 
@@ -100,14 +104,13 @@ export function events(obj) {
 
   function onclickSelects(e) {
     addEvent();
+
     if (e.target.classList.contains('select-names')) {
       obj.curName = selectNames.value;
-      console.log('name');
     } else {
-      console.log('size');
-
       chooseSize(obj, selectSizes.value);
     }
+
     updateGame(obj);
     isTimerStart = stopTimer(timerInterval, obj);
     createTimerFunction = initTimer(obj);

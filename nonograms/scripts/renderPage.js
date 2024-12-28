@@ -1,6 +1,7 @@
 // import { game } from './gameData.js';
 import { updateSelect } from './updateSelect.js';
 import { updateGame } from './updateGame.js';
+import { updateTable } from './saveDataLocalStorage.js';
 // import { events } from './events.js';
 
 export default function renderPage(game) {
@@ -8,6 +9,9 @@ export default function renderPage(game) {
 
   const main = document.createElement('div');
   main.classList.add('main');
+
+  const tableRecords = document.createElement('table');
+  tableRecords.classList.add('table-results');
 
   const wrap = document.createElement('div');
   wrap.classList.add('wrap');
@@ -33,10 +37,6 @@ export default function renderPage(game) {
 
   const btnTheme = document.createElement('button');
   btnTheme.classList.add('theme');
-  // btnTheme.innerText = 'dark';
-
-  // const valuesTheme = ['light', 'dark', 'secret'];
-  // updateSelect(valuesTheme, selectTheme);
 
   const wrapSelect = document.createElement('div');
   wrapSelect.classList.add('wrap-select');
@@ -104,7 +104,7 @@ export default function renderPage(game) {
   wrapGame.append(blockLeft, blockRight);
   gameButtons.append(timer, btnTheme, btnRandom, btnSolution, btnReset);
   wrap.append(gameButtons, wrapGame);
-  main.append(wrap);
+  main.append(tableRecords, wrap);
   modal.append(modalClose, modalTextResult);
   overlay.append(modal);
   body.append(overlay, main);
@@ -112,5 +112,7 @@ export default function renderPage(game) {
   game.curName = game.valuesGameNames5[0];
 
   updateGame(game);
+  updateTable(game);
+
   // events(game);
 }
