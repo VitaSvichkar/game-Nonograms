@@ -7,6 +7,7 @@ import { showModal } from './showModal.js';
 import { updateGameState } from './updateGameState.js';
 import { checkResultGame } from './checkResultGame.js';
 import { saveDataInArray } from './saveDataLocalStorage.js';
+import { applySolution } from './applySolution.js';
 
 export function events(obj) {
   const selectSizes = document.querySelector('.select-sizes');
@@ -20,6 +21,7 @@ export function events(obj) {
   const modalClose = document.querySelector('.modal-close');
   const overlay = document.querySelector('.overlay');
   const btnSolution = document.querySelector('.solution-btn');
+  const btnSaveGame = document.querySelector('.btn-save');
   const audioLeftClick = new Audio('./assets/sounds/leftClick.mp3');
   const audioRightClick = new Audio('./assets/sounds/rightClick.mp3');
   const audioVictory = new Audio('./assets/sounds/victory.mp3');
@@ -44,16 +46,40 @@ export function events(obj) {
   btnReset.addEventListener('click', onClickButtons);
   btnRandom.addEventListener('click', onClickButtons);
 
+  if (obj.saveBtnText === 'continue game') {
+    btnSaveGame.classList.add('continue-game');
+    gameBlock.removeEventListener('click', onClickGameBlock);
+    gameBlock.removeEventListener('contextmenu', onContextMenuGameBlock);
+  }
+
+  btnSaveGame.addEventListener('click', () => {
+    if (btnSaveGame.classList.contains('continue-game')) {
+      addEvent();
+      btnSaveGame.classList.remove('continue-game');
+      localStorage.setItem('saveBtnText', 'save game');
+      obj.saveBtnText = localStorage.getItem('saveBtnText');
+      btnSaveGame.innerText = obj.saveBtnText;
+      startTimer();
+    } else {
+      gameBlock.removeEventListener('click', onClickGameBlock);
+      gameBlock.removeEventListener('contextmenu', onContextMenuGameBlock);
+      btnSaveGame.classList.add('continue-game');
+      localStorage.setItem('saveBtnText', 'continue game');
+      obj.saveBtnText = localStorage.getItem('saveBtnText');
+      btnSaveGame.innerText = obj.saveBtnText;
+      isTimerStart = stopTimer(timerInterval, obj);
+      const time = createTimerFunction();
+      obj.saveMin = time[0];
+      obj.saveSec = time[1];
+      localStorage.setItem('currentGame', JSON.stringify(obj));
+    }
+  });
+
   btnSolution.addEventListener('click', () => {
     obj.gameState = obj.curGame.solution;
     const solution = obj.gameState;
     btnReset.click();
-
-    document.querySelectorAll('.cell').forEach((el, ind) => {
-      if (solution[ind] === 1) {
-        el.classList.add('active');
-      }
-    });
+    applySolution(solution);
     gameBlock.removeEventListener('click', onClickGameBlock);
     gameBlock.removeEventListener('contextmenu', onContextMenuGameBlock);
   });
@@ -62,19 +88,18 @@ export function events(obj) {
     overlay.classList.remove('overlay-active');
     isTimerStart = false;
     createTimerFunction = initTimer(obj);
+    resetGameValues(obj);
     updateGame(obj);
   });
 
   function isWon(obj) {
-    const isWon = checkResultGame(obj);
+    const isYes = checkResultGame(obj);
 
-    if (isWon) {
+    if (isYes) {
       playAudio(audioVictory);
       showModal(obj);
       saveDataInArray(obj);
       stopTimer(timerInterval, obj);
-
-      console.log(obj.data);
     }
   }
 
@@ -90,6 +115,8 @@ export function events(obj) {
   }
 
   function onClickButtons(e) {
+    resetGameValues(obj);
+
     addEvent();
     isTimerStart = stopTimer(timerInterval, obj);
     createTimerFunction = initTimer(obj);
@@ -103,6 +130,7 @@ export function events(obj) {
   }
 
   function onclickSelects(e) {
+    resetGameValues(obj);
     addEvent();
 
     if (e.target.classList.contains('select-names')) {
@@ -144,5 +172,18 @@ export function events(obj) {
   function playAudio(audio) {
     audio.currentTime = 0;
     audio.play();
+  }
+
+  function resetGameValues(obj) {
+    obj.gameState = new Array(obj.curSize * obj.curSize).fill(0);
+    obj.minutes = null;
+    obj.seconds = null;
+    obj.saveMin = 0;
+    obj.saveSec = 0;
+    localStorage.removeItem('currentGame');
+    localStorage.removeItem('saveBtnText');
+    obj.saveBtnText = 'save game';
+    btnSaveGame.classList.remove('continue-game');
+    btnSaveGame.innerText = obj.saveBtnText;
   }
 }

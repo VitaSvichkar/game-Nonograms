@@ -2,9 +2,16 @@
 import { updateSelect } from './updateSelect.js';
 import { updateGame } from './updateGame.js';
 import { updateTable } from './saveDataLocalStorage.js';
-// import { events } from './events.js';
+import { applySolution } from './applySolution.js';
+import { events } from './events.js';
 
 export default function renderPage(game) {
+  const obj = JSON.parse(localStorage.getItem('currentGame'));
+
+  if (obj) {
+    game = obj;
+  }
+
   const body = document.body;
 
   const main = document.createElement('div');
@@ -60,7 +67,6 @@ export default function renderPage(game) {
 
   const timer = document.createElement('div');
   timer.classList.add('timer');
-  timer.innerText = `0${game.minutes}:0${game.seconds}`;
 
   game.cellWrapInRow = selectSizes.value / game.cellsInRow;
   game.curSize = selectSizes.value;
@@ -84,6 +90,12 @@ export default function renderPage(game) {
   gameBlock.classList.add('game');
   gameBlock.style.setProperty('--cellWrapCount', game.cellWrapInRow);
 
+  const btnSaveGame = document.createElement('button');
+  btnSaveGame.classList.add('btn-save');
+  btnSaveGame.innerText = localStorage.getItem('saveBtnText')
+    ? localStorage.getItem('saveBtnText')
+    : 'save game';
+
   const overlay = document.createElement('div');
   overlay.classList.add('overlay');
 
@@ -103,7 +115,7 @@ export default function renderPage(game) {
   blockLeft.append(wrapSelect, hintLeft);
   wrapGame.append(blockLeft, blockRight);
   gameButtons.append(timer, btnTheme, btnRandom, btnSolution, btnReset);
-  wrap.append(gameButtons, wrapGame);
+  wrap.append(gameButtons, wrapGame, btnSaveGame);
   main.append(tableRecords, wrap);
   modal.append(modalClose, modalTextResult);
   overlay.append(modal);
@@ -111,8 +123,11 @@ export default function renderPage(game) {
 
   game.curName = game.valuesGameNames5[0];
 
+  if (!game.gameState) {
+    game.gameState = new Array(game.curSize * game.curSize).fill(0);
+  }
+  events(game);
   updateGame(game);
   updateTable(game);
-
-  // events(game);
+  applySolution(game.gameState);
 }

@@ -51,8 +51,8 @@ body {
 table,
 th,
 td {
-  min-width: 70px;
-  border-bottom: var(--border);
+  // min-width: 70px;
+  // border-bottom: var(--border);
   border-collapse: collapse;
   padding: 8px;
 }
@@ -85,24 +85,25 @@ th {
   gap: 20px;
 }
 
+button {
+  font-family: 'Courier New', Courier, monospace;
+  border-radius: 5px;
+  padding: 10px;
+  border: var(--borderWrap);
+  background-color: var(--bgBtn);
+  outline: none;
+  cursor: pointer;
+  color: var(--colorText);
+
+  &:hover {
+    border-color: var(--accentHover);
+  }
+}
+
 .game-btns {
   display: flex;
   align-items: center;
   gap: 10px;
-
-  & > *:not(.timer) {
-    font-family: 'Courier New', Courier, monospace;
-    border-radius: 5px;
-    padding: 10px;
-    border: var(--borderWrap);
-    background-color: var(--bgBtn);
-    outline: none;
-    cursor: pointer;
-    color: var(--colorText);
-    &:hover {
-      border-color: var(--accentHover);
-    }
-  }
 
   .theme {
     position: relative;

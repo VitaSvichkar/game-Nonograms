@@ -16,7 +16,10 @@ export function saveDataInArray(obj) {
 }
 
 export function updateTable(obj) {
-  obj.data = JSON.parse(localStorage.getItem('records'));
+  obj.data = JSON.parse(localStorage.getItem('records'))
+    ? JSON.parse(localStorage.getItem('records'))
+    : [];
+
   const table = document.querySelector('.table-results');
   table.innerHTML = `
   <caption>records</caption>

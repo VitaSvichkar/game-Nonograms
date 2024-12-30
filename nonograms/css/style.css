@@ -71,8 +71,6 @@ body {
 table,
 th,
 td {
-  min-width: 70px;
-  border-bottom: var(--border);
   border-collapse: collapse;
   padding: 8px;
 }
@@ -112,16 +110,7 @@ th {
   gap: 20px;
 }
 
-.game-btns {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 10px;
-}
-.game-btns > *:not(.timer) {
+button {
   font-family: "Courier New", Courier, monospace;
   border-radius: 5px;
   padding: 10px;
@@ -131,8 +120,18 @@ th {
   cursor: pointer;
   color: var(--colorText);
 }
-.game-btns > *:not(.timer):hover {
+button:hover {
   border-color: var(--accentHover);
+}
+
+.game-btns {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
 }
 .game-btns .theme {
   position: relative;
