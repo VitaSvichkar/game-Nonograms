@@ -124,7 +124,7 @@ export default function renderPage(game) {
     selectSizes.value = game.curSize;
     const arrNames = `valuesGameNames${game.curSize}`;
     updateSelect(game[arrNames], selectGameNames);
-    selectGameNames.values = game.curName;
+    selectGameNames.value = game.curName;
     obj.minute = obj.saveMin;
     obj.seconds = obj.saveSec;
 
