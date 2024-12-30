@@ -1,4 +1,3 @@
-// import { game } from './gameData.js';
 import { updateSelect } from './updateSelect.js';
 import { updateGame } from './updateGame.js';
 import { updateTable } from './saveDataLocalStorage.js';
@@ -6,12 +5,6 @@ import { applySolution } from './applySolution.js';
 import { events } from './events.js';
 
 export default function renderPage(game) {
-  const obj = JSON.parse(localStorage.getItem('currentGame'));
-
-  if (obj) {
-    game = obj;
-  }
-
   const body = document.body;
 
   const main = document.createElement('div');
@@ -122,12 +115,26 @@ export default function renderPage(game) {
   body.append(overlay, main);
 
   game.curName = game.valuesGameNames5[0];
+  game.gameState = new Array(game.curSize * game.curSize).fill(0);
+  const obj = JSON.parse(localStorage.getItem('currentGame'));
 
-  if (!game.gameState) {
-    game.gameState = new Array(game.curSize * game.curSize).fill(0);
+  if (obj) {
+    game = obj;
+    gameBlock.style.setProperty('--cellWrapCount', game.cellWrapInRow);
+    selectSizes.value = game.curSize;
+    const arrNames = `valuesGameNames${game.curSize}`;
+    updateSelect(game[arrNames], selectGameNames);
+    selectGameNames.values = game.curName;
+    obj.minute = obj.saveMin;
+    obj.seconds = obj.saveSec;
+
+    events(game);
+    updateGame(game);
+    updateTable(game);
+    applySolution(game.gameState);
+  } else {
+    events(game);
+    updateGame(game);
+    updateTable(game);
   }
-  events(game);
-  updateGame(game);
-  updateTable(game);
-  applySolution(game.gameState);
 }

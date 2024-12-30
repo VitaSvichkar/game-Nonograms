@@ -69,9 +69,6 @@ export function events(obj) {
       btnSaveGame.innerText = obj.saveBtnText;
       isTimerStart = stopTimer(timerInterval, obj);
       const time = createTimerFunction();
-      obj.saveMin = time[0];
-      obj.saveSec = time[1];
-      localStorage.setItem('currentGame', JSON.stringify(obj));
     }
   });
 
@@ -115,8 +112,6 @@ export function events(obj) {
   }
 
   function onClickButtons(e) {
-    resetGameValues(obj);
-
     addEvent();
     isTimerStart = stopTimer(timerInterval, obj);
     createTimerFunction = initTimer(obj);
@@ -126,11 +121,11 @@ export function events(obj) {
       chooseSize(obj, selectSizes.value, name);
       selectNames.value = name;
     }
+    resetGameValues(obj);
     updateGame(obj);
   }
 
   function onclickSelects(e) {
-    resetGameValues(obj);
     addEvent();
 
     if (e.target.classList.contains('select-names')) {
@@ -139,6 +134,7 @@ export function events(obj) {
       chooseSize(obj, selectSizes.value);
     }
 
+    resetGameValues(obj);
     updateGame(obj);
     isTimerStart = stopTimer(timerInterval, obj);
     createTimerFunction = initTimer(obj);
@@ -154,7 +150,6 @@ export function events(obj) {
 
   function onContextMenuGameBlock(e) {
     playAudio(audioRightClick);
-
     startTimer();
     colorCell(e, obj);
     isWon(obj);
@@ -176,10 +171,10 @@ export function events(obj) {
 
   function resetGameValues(obj) {
     obj.gameState = new Array(obj.curSize * obj.curSize).fill(0);
-    obj.minutes = null;
-    obj.seconds = null;
     obj.saveMin = 0;
     obj.saveSec = 0;
+    obj.minutes = obj.saveMin;
+    obj.seconds = obj.saveSec;
     localStorage.removeItem('currentGame');
     localStorage.removeItem('saveBtnText');
     obj.saveBtnText = 'save game';
