@@ -1,9 +1,11 @@
 import { fillField } from './fillField.js';
+import { returnTime } from './returnTime.js';
 import { showHints } from './showHints.js';
 
 export function updateGame(obj) {
   const timer = document.querySelector('.timer');
-  timer.innerText = obj.minutes ? `${obj.minutes}:${obj.seconds}` : `00:00`;
+  const time = returnTime(obj);
+  timer.innerText = time;
 
   obj.curGame = obj.variants[`size${obj.curSize}`].find(
     (el) => el.name === obj.curName

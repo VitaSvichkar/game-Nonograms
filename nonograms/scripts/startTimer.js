@@ -1,8 +1,10 @@
+import { returnTime } from './returnTime.js';
+
 export function initTimer(obj) {
   const timer = document.querySelector('.timer');
 
-  let min = obj.saveMin;
-  let sec = obj.saveSec;
+  let min = obj.minutes;
+  let sec = obj.seconds;
 
   return function () {
     sec++;
@@ -12,19 +14,21 @@ export function initTimer(obj) {
       sec = 0;
     }
 
-    obj.seconds = sec <= 9 ? `0${sec}` : sec;
-    obj.minutes = min < 9 ? `0${min}` : min;
+    obj.minutes = min;
+    obj.seconds = sec;
 
-    timer.innerText = `${obj.minutes}:${obj.seconds}`;
-    // console.log(obj.seconds);
-    return [min, sec];
+    const time = returnTime(obj);
+    timer.innerText = time;
+
+    obj.saveMin = min;
+    obj.saveSec = sec;
   };
 }
 
 export function stopTimer(fun, obj) {
   clearInterval(fun);
-  obj.seconds = null;
-  obj.minutes = null;
+  obj.seconds = 0;
+  obj.minutes = 0;
 
   return false;
 }

@@ -1,12 +1,16 @@
+import { returnTime } from './returnTime.js';
+
 function saveDataLocalStorage(el) {
   localStorage.setItem('recordsNonograms', JSON.stringify(el));
 }
 
 export function saveDataInArray(obj) {
+  const time = returnTime(obj);
+
   obj.data.push({
     name: obj.curName,
     level: `${obj.curSize}x${obj.curSize}`,
-    time: `${obj.minutes}:${obj.seconds}`,
+    time: time,
   });
 
   saveDataLocalStorage(obj.data);
