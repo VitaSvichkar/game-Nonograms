@@ -1,4 +1,5 @@
 import { returnTime } from './returnTime.js';
+import { sorting } from './sorting.js';
 
 function saveDataLocalStorage(el) {
   localStorage.setItem('recordsNonograms', JSON.stringify(el));
@@ -13,10 +14,13 @@ export function saveDataInArray(obj) {
     time: time,
   });
 
-  saveDataLocalStorage(obj.data);
-  updateTable(obj);
+  if (obj.data.length > 5) {
+    obj.data.shift();
+  }
 
-  console.log(JSON.parse(localStorage.getItem('recordsNonograms')));
+  const sortData = sorting(obj.data);
+  saveDataLocalStorage(sortData);
+  updateTable(obj);
 }
 
 export function updateTable(obj) {
@@ -37,7 +41,7 @@ export function updateTable(obj) {
     obj.data.forEach((el) => {
       const tr = document.createElement('tr');
       const arrayEl = Object.values(el);
-      console.log(arrayEl);
+
       arrayEl.forEach((el) => {
         const td = document.createElement('td');
         td.innerText = el;
