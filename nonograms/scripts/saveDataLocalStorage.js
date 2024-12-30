@@ -1,5 +1,5 @@
 function saveDataLocalStorage(el) {
-  localStorage.setItem('records', JSON.stringify(el));
+  localStorage.setItem('recordsNonograms', JSON.stringify(el));
 }
 
 export function saveDataInArray(obj) {
@@ -12,12 +12,12 @@ export function saveDataInArray(obj) {
   saveDataLocalStorage(obj.data);
   updateTable(obj);
 
-  console.log(JSON.parse(localStorage.getItem('records')));
+  console.log(JSON.parse(localStorage.getItem('recordsNonograms')));
 }
 
 export function updateTable(obj) {
-  obj.data = JSON.parse(localStorage.getItem('records'))
-    ? JSON.parse(localStorage.getItem('records'))
+  obj.data = JSON.parse(localStorage.getItem('recordsNonograms'))
+    ? JSON.parse(localStorage.getItem('recordsNonograms'))
     : [];
 
   const table = document.querySelector('.table-results');
