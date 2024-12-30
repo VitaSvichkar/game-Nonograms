@@ -10,8 +10,11 @@ export const game = {
   valuesGameNames15: null,
   data: [],
   gameState: null,
-  minutes: 0,
-  seconds: 0,
+  minutes: null,
+  seconds: null,
+  saveMin: 0,
+  saveSec: 0,
+  saveBtnText: null,
 
   variants: {
     size5: [
