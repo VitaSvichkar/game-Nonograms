@@ -1,29 +1,5 @@
 @import './assets/styles/vars';
 
-@mixin borderCellHint {
-  border: var(--borderBold);
-
-  .hints {
-    display: flex;
-    justify-content: flex-end;
-    @content;
-
-    & > * {
-      width: $widthCell;
-      height: $widthCell;
-      border: var(--border);
-      cursor: pointer;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      &:hover {
-        color: var(--colorHoverHint);
-      }
-    }
-  }
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -51,10 +27,8 @@ body {
 table,
 th,
 td {
-  // min-width: 70px;
-  // border-bottom: var(--border);
   border-collapse: collapse;
-  padding: 8px;
+  padding: 6px;
 }
 
 .table-results {
@@ -69,13 +43,15 @@ td {
 
 caption {
   padding: 5px;
-  color: var(--accentSecond);
+  // color: var(--accentSecond);
+  color: var(--btnSaveColor);
 }
 
 th {
   background-color: rgba(103, 103, 103, 0.191);
   font-weight: normal;
   color: var(--accentSecond);
+  color: var(--btnSaveColor);
 }
 
 .wrap {
@@ -97,6 +73,10 @@ button {
 
   &:hover {
     border-color: var(--accentHover);
+  }
+
+  @include deleteHover() {
+    border-color: var(--colorCell);
   }
 }
 
@@ -125,6 +105,11 @@ button {
       transform: rotate(20deg);
       filter: invert(0.5);
     }
+
+    @include deleteHover() {
+      transform: rotate(0deg);
+      filter: var(--filter);
+    }
   }
 
   .timer {
@@ -140,6 +125,25 @@ button {
     &:hover {
       background-color: var(--accentHover);
     }
+
+    @include deleteHover() {
+      background-color: var(--accent);
+    }
+  }
+}
+
+.btn-save {
+  background-color: var(--btnSaveColor);
+  color: white;
+  text-transform: uppercase;
+  border: none;
+
+  &:hover {
+    background-color: var(--btnSaveColorHover);
+  }
+
+  @include deleteHover() {
+    background-color: var(--btnSaveColor);
   }
 }
 
@@ -221,7 +225,6 @@ button {
 
 .cell-wrap {
   border: var(--borderBold);
-
   display: grid;
   grid-template-columns: repeat(5, 1fr);
 }
@@ -240,13 +243,17 @@ button {
   &:hover {
     border-color: var(--colorActiveCell);
   }
+
+  @include deleteHover() {
+    border-color: var(--colorCell);
+  }
 }
 
 .active {
   background-color: var(--colorActiveCell);
 
   &:hover {
-    border: var(--border);
+    border-color: var(--colorCell);
   }
 }
 
@@ -313,5 +320,9 @@ button {
   &:hover {
     background-color: var(--bgGame);
     color: var(--colorText);
+  }
+
+  @include deleteHover() {
+    background-color: transparent;
   }
 }

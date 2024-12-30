@@ -1,8 +1,8 @@
 :root {
   --cellWrapCount: 1;
   --themeBg: rgb(242, 242, 242);
-  --accent: rgb(190, 195, 250);
-  --accentHover: rgba(157, 159, 224, 0.841);
+  --accent: rgb(12 7 23 / 86%);
+  --accentHover: rgba(37, 38, 52, 0.84);
   --accentSecond: rgb(253, 33, 172);
   --accentSecond: rgb(4, 93, 113);
   --colorText: rgb(0, 0, 0);
@@ -12,10 +12,12 @@
   --colorActiveCell: rgb(49, 49, 51);
   --colorCell: rgb(204, 209, 217);
   --colorHintDone: rgb(204, 209, 217);
+  --btnSaveColor: rgb(234, 75, 94);
+  --btnSaveColorHover: rgb(219, 53, 70);
+  --colorHoverHint: rgb(233, 95, 95);
   --border: 1px solid var(--colorCell);
   --borderBold: 2px solid var(--colorWrapCell);
   --borderWrap: 1px solid var(--colorCell);
-  --colorHoverHint: rgb(233, 95, 95);
   --filter: invert(0);
 }
 
@@ -31,9 +33,9 @@
   --colorActiveCell: rgb(255, 251, 245);
   --colorCell: rgb(14, 14, 14);
   --colorHintDone: rgb(92, 92, 92);
+  --borderWrap: 1px solid rgb(96, 96, 96);
   --border: 1px solid var(--colorCell);
   --borderBold: 2px solid var(--colorWrapCell);
-  --borderWrap: 1px solid rgb(96, 96, 96);
   --filter: invert(1);
 }
 
@@ -72,7 +74,7 @@ table,
 th,
 td {
   border-collapse: collapse;
-  padding: 8px;
+  padding: 6px;
 }
 
 .table-results {
@@ -87,13 +89,14 @@ td {
 
 caption {
   padding: 5px;
-  color: var(--accentSecond);
+  color: var(--btnSaveColor);
 }
 
 th {
   background-color: rgba(103, 103, 103, 0.191);
   font-weight: normal;
   color: var(--accentSecond);
+  color: var(--btnSaveColor);
 }
 
 .wrap {
@@ -122,6 +125,11 @@ button {
 }
 button:hover {
   border-color: var(--accentHover);
+}
+@media (hover: none) and (pointer: coarse) {
+  button:hover {
+    border-color: var(--colorCell);
+  }
 }
 
 .game-btns {
@@ -160,6 +168,15 @@ button:hover {
   -webkit-filter: invert(0.5);
           filter: invert(0.5);
 }
+@media (hover: none) and (pointer: coarse) {
+  .game-btns .theme:hover {
+    -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+            transform: rotate(0deg);
+    -webkit-filter: var(--filter);
+            filter: var(--filter);
+  }
+}
 .game-btns .timer {
   color: var(--colorText);
   padding: 5px;
@@ -171,6 +188,26 @@ button:hover {
 }
 .game-btns .reset:hover {
   background-color: var(--accentHover);
+}
+@media (hover: none) and (pointer: coarse) {
+  .game-btns .reset:hover {
+    background-color: var(--accent);
+  }
+}
+
+.btn-save {
+  background-color: var(--btnSaveColor);
+  color: white;
+  text-transform: uppercase;
+  border: none;
+}
+.btn-save:hover {
+  background-color: var(--btnSaveColorHover);
+}
+@media (hover: none) and (pointer: coarse) {
+  .btn-save:hover {
+    background-color: var(--btnSaveColor);
+  }
 }
 
 .wrap-game {
@@ -258,8 +295,8 @@ button:hover {
           justify-content: flex-end;
 }
 .wrap-hint-left .hints > * {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border: var(--border);
   cursor: pointer;
   display: -webkit-box;
@@ -274,6 +311,11 @@ button:hover {
 }
 .wrap-hint-left .hints > *:hover {
   color: var(--colorHoverHint);
+}
+@media (hover: none) and (pointer: coarse) {
+  .wrap-hint-left .hints > *:hover {
+    color: var(--colorHintDone);
+  }
 }
 
 .hint-top {
@@ -299,13 +341,13 @@ button:hover {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 30px;
+  width: 25px;
   border-top: none;
   border-bottom: none;
 }
 .wrap-hint-top .hints > * {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border: var(--border);
   cursor: pointer;
   display: -webkit-box;
@@ -321,6 +363,11 @@ button:hover {
 .wrap-hint-top .hints > *:hover {
   color: var(--colorHoverHint);
 }
+@media (hover: none) and (pointer: coarse) {
+  .wrap-hint-top .hints > *:hover {
+    color: var(--colorHintDone);
+  }
+}
 
 .game {
   display: grid;
@@ -335,8 +382,8 @@ button:hover {
 
 .cell {
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border: var(--border);
   display: -webkit-box;
   display: -ms-flexbox;
@@ -353,12 +400,17 @@ button:hover {
 .cell:hover {
   border-color: var(--colorActiveCell);
 }
+@media (hover: none) and (pointer: coarse) {
+  .cell:hover {
+    border-color: var(--colorCell);
+  }
+}
 
 .active {
   background-color: var(--colorActiveCell);
 }
 .active:hover {
-  border: var(--border);
+  border-color: var(--colorCell);
 }
 
 .mark-wrong::before {
@@ -434,4 +486,9 @@ button:hover {
 .modal-close:hover {
   background-color: var(--bgGame);
   color: var(--colorText);
+}
+@media (hover: none) and (pointer: coarse) {
+  .modal-close:hover {
+    background-color: transparent;
+  }
 }/*# sourceMappingURL=style.css.map */
