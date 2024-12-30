@@ -68,7 +68,7 @@ export function events(obj) {
       obj.saveBtnText = localStorage.getItem('saveBtnText');
       btnSaveGame.innerText = obj.saveBtnText;
       isTimerStart = stopTimer(timerInterval, obj);
-      const time = createTimerFunction();
+      localStorage.setItem('currentGame', JSON.stringify(obj));
     }
   });
 
