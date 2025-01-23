@@ -59,6 +59,7 @@ th {
   flex-direction: column;
   align-items: center;
   gap: 20px;
+  padding: 5px;
 }
 
 button {
@@ -324,5 +325,41 @@ button {
 
   @include deleteHover() {
     background-color: transparent;
+  }
+}
+
+@media screen and (max-width: 798.98px) {
+  .main {
+    flex-direction: column;
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 598.98px) {
+  $widthCell: 17px;
+
+  .cell {
+    cursor: pointer;
+    width: $widthCell;
+    height: $widthCell;
+  }
+
+  .wrap-hint-top {
+    .hints {
+      width: $widthCell;
+      & > * {
+        width: $widthCell;
+        height: $widthCell;
+      }
+    }
+  }
+
+  .wrap-hint-left {
+    .hints {
+      & > * {
+        width: $widthCell;
+        height: $widthCell;
+      }
+    }
   }
 }

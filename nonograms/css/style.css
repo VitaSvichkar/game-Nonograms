@@ -111,6 +111,7 @@ th {
       -ms-flex-align: center;
           align-items: center;
   gap: 20px;
+  padding: 5px;
 }
 
 button {
@@ -490,5 +491,33 @@ button:hover {
 @media (hover: none) and (pointer: coarse) {
   .modal-close:hover {
     background-color: transparent;
+  }
+}
+
+@media screen and (max-width: 798.98px) {
+  .main {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    font-size: 12px;
+  }
+}
+@media screen and (max-width: 598.98px) {
+  .cell {
+    cursor: pointer;
+    width: 17px;
+    height: 17px;
+  }
+  .wrap-hint-top .hints {
+    width: 17px;
+  }
+  .wrap-hint-top .hints > * {
+    width: 17px;
+    height: 17px;
+  }
+  .wrap-hint-left .hints > * {
+    width: 17px;
+    height: 17px;
   }
 }/*# sourceMappingURL=style.css.map */
