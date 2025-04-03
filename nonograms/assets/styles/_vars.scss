@@ -3,28 +3,6 @@ $widthCell: 25px;
 :root {
   --cellWrapCount: 1;
 
-  --themeBg: rgb(242, 242, 242);
-  --accent: rgb(12 7 23 / 86%);
-  --accentHover: rgba(37, 38, 52, 0.84);
-  --accentSecond: rgb(253, 33, 172);
-  --accentSecond: rgb(4, 93, 113);
-  --colorText: rgb(0, 0, 0);
-  --bgGame: rgb(255, 255, 255);
-  --bgBtn: rgb(255, 255, 255);
-  --colorWrapCell: rgb(49, 49, 51);
-  --colorActiveCell: rgb(49, 49, 51);
-  --colorCell: rgb(204, 209, 217);
-  --colorHintDone: rgb(204, 209, 217);
-  --btnSaveColor: rgb(234, 75, 94);
-  --btnSaveColorHover: rgb(219, 53, 70);
-  --colorHoverHint: rgb(233, 95, 95);
-  --border: 1px solid var(--colorCell);
-  --borderBold: 2px solid var(--colorWrapCell);
-  --borderWrap: 1px solid var(--colorCell);
-  --filter: invert(0);
-}
-
-.dark-theme {
   --themeBg: rgb(30, 30, 30);
   --accentHover: rgb(61, 92, 82);
   --accent: rgb(59, 112, 96);
@@ -40,6 +18,29 @@ $widthCell: 25px;
   --border: 1px solid var(--colorCell);
   --borderBold: 2px solid var(--colorWrapCell);
   --filter: invert(1);
+
+  --btnSaveColor: rgb(234, 75, 94);
+  --btnSaveColorHover: rgb(219, 53, 70);
+  --colorHoverHint: rgb(233, 95, 95);
+  --overlayBg: rgba(32, 32, 32, 0.474);
+}
+
+.dark-theme {
+  --themeBg: rgb(242, 242, 242);
+  --accentHover: rgba(37, 38, 52, 0.84);
+  --accent: rgb(12 7 23 / 86%);
+  --accentSecond: rgb(4, 93, 113);
+  --colorText: rgb(0, 0, 0);
+  --bgGame: rgb(255, 255, 255);
+  --bgBtn: rgb(255, 255, 255);
+  --colorWrapCell: rgb(49, 49, 51);
+  --colorActiveCell: rgb(49, 49, 51);
+  --colorCell: rgb(204, 209, 217);
+  --colorHintDone: rgb(204, 209, 217);
+  --borderWrap: 1px solid var(--colorCell);
+  --border: 1px solid var(--colorCell);
+  --borderBold: 2px solid var(--colorWrapCell);
+  --filter: invert(0);
 }
 
 @mixin deleteHover() {

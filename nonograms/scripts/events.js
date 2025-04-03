@@ -22,9 +22,15 @@ export function events(obj) {
   const overlay = document.querySelector('.overlay');
   const btnSolution = document.querySelector('.solution-btn');
   const btnSaveGame = document.querySelector('.btn-save');
+  const rulesModal = document.querySelector('.wrap-rules');
+  const btnCloseRules = document.querySelector('.rules button');
   const audioLeftClick = new Audio('./assets/sounds/leftClick.mp3');
   const audioRightClick = new Audio('./assets/sounds/rightClick.mp3');
   const audioVictory = new Audio('./assets/sounds/victory.mp3');
+
+  btnCloseRules.addEventListener('click', () => {
+    rulesModal.style.display = 'none';
+  });
 
   let createTimerFunction = initTimer(obj);
   let isTimerStart = false;

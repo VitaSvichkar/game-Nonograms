@@ -24,6 +24,34 @@ body {
   height: 100%;
 }
 
+.wrap-rules {
+  background-color: var(--overlayBg);
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--colorText);
+}
+
+.rules {
+  width: 550px;
+  background-color: var(--bgGame);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ul {
+    list-style-position: inside;
+    li {
+      padding: 10px;
+    }
+  }
+}
+
 table,
 th,
 td {
@@ -282,7 +310,7 @@ button {
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.729);
+  background-color: var(--overlayBg);
   visibility: hidden;
   opacity: 0;
   transition: visibility 0.2s ease, opacity 0.2s ease;
