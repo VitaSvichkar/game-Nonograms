@@ -1,7 +1,7 @@
 export function updateSelect(arr, domElem) {
   domElem.innerHTML = '';
   const levels = ['easy', 'medium', 'hard'];
-
+  console.log(arr);
   arr.forEach((el, ind) => {
     const option = document.createElement('option');
     option.value = el;

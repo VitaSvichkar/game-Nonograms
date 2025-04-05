@@ -1,20 +1,138 @@
-export const game = {
-  cellsInRow: 5,
-  cellWrapInRow: null,
-  curSize: null,
-  curName: null,
-  curGame: null,
+import { fillField } from './fillField.js';
+import { returnTime } from './returnTime.js';
+import { updateTable } from './updateTable.js';
+import { showHints } from './showHints.js';
+import { sort } from './sort.js';
+import { updateSelect } from './updateSelect.js';
 
-  valuesGameNames5: null,
-  valuesGameNames10: null,
-  valuesGameNames15: null,
-  data: [],
-  gameState: null,
-  minutes: 0,
-  seconds: 0,
-  saveMin: 0,
-  saveSec: 0,
-  saveBtnText: null,
+export const game = {
+  state: {
+    cellsInRow: 5,
+    cellWrapInRow: null,
+    curSize: null,
+    curName: null,
+    curGame: null,
+    valuesGameNames5: null,
+    valuesGameNames10: null,
+    valuesGameNames15: null,
+    data: [],
+    gameState: [],
+    CONTINUE_GAME: 'continue-game',
+    SAVE_GAME: 'save game',
+    minutes: 0,
+    seconds: 0,
+    saveMin: 0,
+    saveSec: 0,
+    saveBtnText: null,
+  },
+
+  initDOM() {
+    console.log('initDOM');
+    return (this.domElem = {
+      gameBlock: document.querySelector('.game'),
+      selectNames: document.querySelector('.select-names'),
+      selectSizes: document.querySelector('.select-sizes'),
+      hintLeft: document.querySelector('.hint-left'),
+      hintTop: document.querySelector('.hint-top'),
+      overlay: document.querySelector('.overlay'),
+      modalTextResult: document.querySelector('.modal-text-result'),
+      timer: document.querySelector('.timer'),
+      btnTheme: document.querySelector('.theme'),
+      btnReset: document.querySelector('.reset'),
+      btnRandom: document.querySelector('.random-btn'),
+      modalCloseIco: document.querySelector('.modal-close'),
+      btnSolution: document.querySelector('.solution-btn'),
+      btnSaveGame: document.querySelector('.btn-save'),
+      rulesModal: document.querySelector('.wrap-rules'),
+      btnCloseRules: document.querySelector('.rules button'),
+    });
+  },
+
+  domElem: null,
+
+  checkResultGame() {
+    const solution = this.state.curGame.solution;
+    const gameState = this.state.gameState;
+    console.log(solution, gameState);
+    for (let i = 0; i < solution.length; i += 1) {
+      if (gameState[i] === 'x') {
+        continue;
+      }
+
+      if (solution[i] !== gameState[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  },
+
+  chooseSize(val, name) {
+    this.state.curSize = val;
+    this.state.cellWrapInRow = val / this.state.cellsInRow;
+    this.domElem.gameBlock.style.setProperty(
+      '--cellWrapCount',
+      this.state.cellWrapInRow
+    );
+    console.log(this.state.curName);
+    const keyNames = `valuesGameNames${this.state.curSize}`;
+    const arrNames = this.state[keyNames];
+
+    this.state.curName = name ? name : arrNames[0];
+    updateSelect(arrNames, this.domElem.selectNames);
+  },
+
+  updateGame() {
+    const time = returnTime();
+    this.domElem.timer.innerText = time;
+
+    this.state.curGame = this.variants[`size${this.state.curSize}`].find(
+      (el) => el.name === this.state.curName
+    );
+
+    fillField();
+    showHints();
+  },
+
+  updateGameState(ind) {
+    switch (this.state.gameState[ind]) {
+      case 0:
+        this.state.gameState[ind] = 1;
+        break;
+      case 1:
+        this.state.gameState[ind] = 0;
+        break;
+      case 'x':
+        this.state.gameState[ind] = 'x';
+    }
+  },
+
+  saveDataLocalStorage() {
+    const time = returnTime();
+
+    this.state.data.push({
+      name: this.state.curName,
+      level: `${this.state.curSize}x${this.state.curSize}`,
+      time: time,
+    });
+
+    if (this.state.data.length > 5) {
+      this.state.data.shift();
+    }
+
+    const sortData = sort(this.state.data);
+    localStorage.setItem('recordsNonograms', JSON.stringify(sortData));
+
+    updateTable(this.state);
+  },
+
+  getVariants() {
+    return [
+      ...this.variants.size5,
+      ...this.variants.size10,
+      ...this.variants.size15,
+    ];
+  },
 
   variants: {
     size5: [
@@ -654,6 +772,6 @@ export const game = {
   },
 };
 
-game.valuesGameNames5 = game.variants.size5.map((el) => el.name);
-game.valuesGameNames10 = game.variants.size10.map((el) => el.name);
-game.valuesGameNames15 = game.variants.size15.map((el) => el.name);
+game.state.valuesGameNames5 = game.variants.size5.map((el) => el.name);
+game.state.valuesGameNames10 = game.variants.size10.map((el) => el.name);
+game.state.valuesGameNames15 = game.variants.size15.map((el) => el.name);

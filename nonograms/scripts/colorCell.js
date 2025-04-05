@@ -1,4 +1,6 @@
-export function colorCell(e, obj) {
+import { game } from './gameData.js';
+
+export function colorCell(e) {
   if (e.target.classList.contains('cell')) {
     const ind = +e.target.dataset.index;
     e.stopPropagation();
@@ -7,7 +9,7 @@ export function colorCell(e, obj) {
       e.target.classList.remove('mark-wrong');
       e.target.classList.toggle('active');
     } else if (e.type === 'contextmenu') {
-      obj.gameState[ind] = 0;
+      game.state.gameState[ind] = 'x';
       e.preventDefault();
       e.target.classList.remove('active');
       e.target.classList.toggle('mark-wrong');

@@ -1,6 +1,5 @@
 import { updateSelect } from './updateSelect.js';
-import { updateGame } from './updateGame.js';
-import { updateTable } from './saveDataLocalStorage.js';
+import { updateTable } from './updateTable.js';
 import { applySolution } from './applySolution.js';
 import { events } from './events.js';
 
@@ -46,9 +45,7 @@ export default function renderPage(game) {
   const selectGameNames = document.createElement('select');
   selectGameNames.classList.add('select-style');
   selectGameNames.classList.add('select-names');
-  console.log(game);
-  console.log(game.valuesGameNames5);
-  updateSelect(game.valuesGameNames5, selectGameNames);
+  updateSelect(game.state.valuesGameNames5, selectGameNames);
 
   // SELECT SIZES
 
@@ -61,8 +58,8 @@ export default function renderPage(game) {
   const timer = document.createElement('div');
   timer.classList.add('timer');
 
-  game.cellWrapInRow = selectSizes.value / game.cellsInRow;
-  game.curSize = selectSizes.value;
+  game.state.cellWrapInRow = selectSizes.value / game.state.cellsInRow;
+  game.state.curSize = selectSizes.value;
 
   const wrapGame = document.createElement('div');
   wrapGame.classList.add('wrap-game');
@@ -85,9 +82,9 @@ export default function renderPage(game) {
 
   const btnSaveGame = document.createElement('button');
   btnSaveGame.classList.add('btn-save');
-  btnSaveGame.innerText = localStorage.getItem('saveBtnText')
-    ? localStorage.getItem('saveBtnText')
-    : 'save game';
+  // btnSaveGame.innerText = localStorage.getItem('saveBtnText')
+  //   ? localStorage.getItem('saveBtnText')
+  //   : 'save game';
 
   const overlay = document.createElement('div');
   overlay.classList.add('overlay');
@@ -95,9 +92,9 @@ export default function renderPage(game) {
   const modal = document.createElement('div');
   modal.classList.add('modal');
 
-  const modalClose = document.createElement('span');
-  modalClose.classList.add('modal-close');
-  modalClose.innerHTML = `&#215;`;
+  const modalCloseIco = document.createElement('span');
+  modalCloseIco.classList.add('modal-close');
+  modalCloseIco.innerHTML = `&#215;`;
 
   const modalTextResult = document.createElement('div');
   modalTextResult.classList.add('modal-text-result');
@@ -110,31 +107,49 @@ export default function renderPage(game) {
   gameButtons.append(timer, btnTheme, btnRandom, btnSolution, btnReset);
   wrap.append(gameButtons, wrapGame, btnSaveGame);
   main.append(tableRecords, wrap);
-  modal.append(modalClose, modalTextResult);
+  modal.append(modalCloseIco, modalTextResult);
   overlay.append(modal);
   body.append(overlay, main);
 
-  game.curName = game.valuesGameNames5[0];
-  game.gameState = new Array(game.curSize * game.curSize).fill(0);
-  const obj = JSON.parse(localStorage.getItem('currentGame'));
+  game.state.curName = game.state.valuesGameNames5[0];
+  game.state.gameState = new Array(
+    game.state.curSize * game.state.curSize
+  ).fill(0);
 
-  if (obj) {
-    game = obj;
-    gameBlock.style.setProperty('--cellWrapCount', game.cellWrapInRow);
-    selectSizes.value = game.curSize;
-    const arrNames = `valuesGameNames${game.curSize}`;
-    updateSelect(game[arrNames], selectGameNames);
-    selectGameNames.value = game.curName;
-    obj.minute = obj.saveMin;
-    obj.seconds = obj.saveSec;
+  game.initDOM();
+  loadOrInitGame(game);
+}
 
-    events(game);
-    updateGame(game);
-    updateTable(game);
-    applySolution(game.gameState);
+function loadOrInitGame(game) {
+  const { gameBlock, selectSizes, selectNames, btnSaveGame } = game.domElem;
+  const savedCurGame = JSON.parse(localStorage.getItem('currentGame'));
+
+  if (savedCurGame) {
+    game.state = savedCurGame;
+    gameBlock.style.setProperty('--cellWrapCount', game.state.cellWrapInRow);
+    selectSizes.value = game.state.curSize;
+    const arrNames = `valuesGameNames${game.state.curSize}`;
+    updateSelect(game.state[arrNames], selectNames);
+    selectNames.value = game.state.curName;
+    savedCurGame.minute = savedCurGame.saveMin;
+    savedCurGame.seconds = savedCurGame.saveSec;
+
+    localStorage.setItem('saveBtnText', game.state.CONTINUE_GAME);
+    btnSaveGame.innerText = localStorage.getItem('saveBtnText');
+
+    initGameUI(game, true);
   } else {
-    events(game);
-    updateGame(game);
-    updateTable(game);
+    btnSaveGame.innerText = game.state.SAVE_GAME;
+    initGameUI(game);
+  }
+}
+
+function initGameUI(game, applySaved = false) {
+  events(game);
+  game.updateGame();
+  updateTable(game);
+
+  if (applySaved) {
+    applySolution(game.state.gameState);
   }
 }

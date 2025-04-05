@@ -1,4 +1,4 @@
-export function sorting(arr) {
+export function sort(arr) {
   const sortData = arr.sort(
     (a, b) => timeToSeconds(a.time) - timeToSeconds(b.time)
   );
