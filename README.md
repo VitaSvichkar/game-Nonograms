@@ -1,5 +1,7 @@
 # Game Nonograms
 
+![Game Nonograms preview screenshot](https://github.com/user-attachments/assets/6d3c2c01-6c33-4ac1-9b25-38921a48934a)
+
 **Deploy** [Live Demo](https://rolling-scopes-school.github.io/vitasvichkar-JSFE2024Q4/nonograms/)
 
 **Key Features:**
@@ -24,4 +26,4 @@ Hacker:
 * Saves last 5 win results with sorting
 * “Random game” button loads random template and level
 * “Solution” button fills correct solution (games solved this way don’t count in scoreboard)
-![Game Nonograms preview screenshot](https://github.com/user-attachments/assets/6d3c2c01-6c33-4ac1-9b25-38921a48934a)
+
